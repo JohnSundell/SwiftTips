@@ -2,7 +2,7 @@
 
 Here I've gathered all the Swift tips & tricks that I've shared on Twitter.
 
-## [#X Chaining optionals with map() and flatMap()](https://twitter.com/johnsundell/status/864130284140318720)
+## [#19 Chaining optionals with map() and flatMap()](https://twitter.com/johnsundell/status/864130284140318720)
 
 Using `map()` and `flatMap()` on optionals you can chain multiple operations without having to use lengthy if lets or guards:
 
@@ -24,7 +24,7 @@ handle(url)
 argument(at: 1).flatMap(URL.init).map(handle)
 ```
 
-## [#X Using self-executing closures for lazy properties](https://twitter.com/johnsundell/status/863073311718338561)
+## [#18 Using self-executing closures for lazy properties](https://twitter.com/johnsundell/status/863073311718338561)
 
 Using self-executing closures is a great way to encapsulate lazy property initialization:
 
@@ -45,7 +45,7 @@ class StoreViewController: UIViewController {
 }
 ```
 
-## [#X Speeding up Swift package tests](https://twitter.com/johnsundell/status/862721700584189953)
+## [#17 Speeding up Swift package tests](https://twitter.com/johnsundell/status/862721700584189953)
 
 You can speed up your Swift package tests using the `--parallel` flag. For [Marathon](https://github.com/johnsundell/marathon), the tests execute 3 times faster that way!
 
@@ -53,7 +53,7 @@ You can speed up your Swift package tests using the `--parallel` flag. For [Mara
 swift test --parallel
 ```
 
-## [#X Avoiding mocking UserDefaults](https://twitter.com/johnsundell/status/855713943809032192)
+## [#16 Avoiding mocking UserDefaults](https://twitter.com/johnsundell/status/855713943809032192)
 
 Struggling with mocking `UserDefaults` in a test? The good news is: you don't need mocking - just create a real instance:
 
@@ -73,7 +73,7 @@ class LoginTests: XCTestCase {
 }
 ```
 
-## [#X Using variadic parameters](https://twitter.com/johnsundell/status/854365916716572672)
+## [#15 Using variadic parameters](https://twitter.com/johnsundell/status/854365916716572672)
 
 Using variadic parameters in Swift, you can create some really nice APIs that take a list of objects without having to use an array:
 
@@ -93,7 +93,7 @@ canvas.add(circle, lineA, lineB)
 canvas.render()
 ```
 
-## [#X Referring to enum cases with associated values as closures](https://twitter.com/johnsundell/status/848951678288228352)
+## [#14 Referring to enum cases with associated values as closures](https://twitter.com/johnsundell/status/848951678288228352)
 
 Just like you can refer to a Swift function as a closure, you can do the same thing with enum cases with associated values:
 
@@ -112,7 +112,7 @@ struct UserSchema {
 }
 ```
 
-## [#X Using the === operator to compare objects by instance](https://twitter.com/johnsundell/status/847468284198797313)
+## [#13 Using the === operator to compare objects by instance](https://twitter.com/johnsundell/status/847468284198797313)
 
 The `===` operator lets you check if two objects are the same instance. Very useful when verifying that an array contains an instance in a test:
 
@@ -133,7 +133,7 @@ func testDestroyingEnemy() {
 }
 ```
 
-## [#X Calling initializers with dot syntax and passing them as closures](https://twitter.com/johnsundell/status/845560409126027264)
+## [#12 Calling initializers with dot syntax and passing them as closures](https://twitter.com/johnsundell/status/845560409126027264)
 
 Cool thing about Swift initializers: you can call them using dot syntax and pass them as closures! Perfect for mocking dates in tests.
 
@@ -153,7 +153,7 @@ class Logger {
 }
 ```
 
-## [#X Structuring UI tests as extensions on XCUIApplication](https://twitter.com/johnsundell/status/844945775088013312)
+## [#11 Structuring UI tests as extensions on XCUIApplication](https://twitter.com/johnsundell/status/844945775088013312)
 
 Most of my UI testing logic is now categories on `XCUIApplication`. Makes the test cases really easy to read:
 
@@ -179,7 +179,7 @@ func testDisplayingCategories() {
 }
 ```
 
-## [#X Avoiding default cases in switch statements](https://twitter.com/johnsundell/status/844608407718051847)
+## [#10 Avoiding default cases in switch statements](https://twitter.com/johnsundell/status/844608407718051847)
 
 It’s a good idea to avoid “default” cases when switching on Swift enums - it’ll “force you” to update your logic when a new case is added:
 
@@ -201,7 +201,7 @@ func handle(_ state: State) {
 }
 ```
 
-## [#X Using the guard statement in many different scopes](https://twitter.com/johnsundell/status/844262618630148098)
+## [#9 Using the guard statement in many different scopes](https://twitter.com/johnsundell/status/844262618630148098)
 
 It's really cool that you can use Swift's 'guard' statement to exit out of pretty much any scope, not only return from functions:
 
@@ -236,7 +236,7 @@ for string in strings {
 }
 ```
 
-## [#X Passing functions & operators as closures](https://twitter.com/johnsundell/status/843771235897098240)
+## [#8 Passing functions & operators as closures](https://twitter.com/johnsundell/status/843771235897098240)
 
 Love how you can pass functions & operators as closures in Swift. For example, it makes the syntax for sorting arrays really nice!
 
@@ -245,7 +245,7 @@ let array = [3, 9, 1, 4, 6, 2]
 let sorted = array.sorted(by: <)
 ```
 
-## [#X Using #function for UserDefaults key consistency](https://twitter.com/johnsundell/status/842058888371421185)
+## [#7 Using #function for UserDefaults key consistency](https://twitter.com/johnsundell/status/842058888371421185)
 
 Here's a neat little trick I use to get UserDefault key consistency in Swift (#function expands to the property name in getters/setters). Just remember to write a good suite of tests that'll guard you against bugs when changing property names.
 
@@ -258,7 +258,7 @@ extension UserDefaults {
 }
 ```
 
-## [#X Using a name already taken by the standard library](https://twitter.com/johnsundell/status/839209426015891456)
+## [#6 Using a name already taken by the standard library](https://twitter.com/johnsundell/status/839209426015891456)
 
 Want to use a name already taken by the standard library for a nested type? No problem - just use `Swift.` to disambiguate:
 
@@ -271,7 +271,7 @@ extension Command {
 }
 ```
 
-## [#X Using Wrap to implement Equatable](https://twitter.com/johnsundell/status/835860744176553984)
+## [#5 Using Wrap to implement Equatable](https://twitter.com/johnsundell/status/835860744176553984)
 
 Playing around with using [Wrap](https://github.com/johnsundell/wrap) to implement `Equatable` for any type, primarily for testing:
 
@@ -287,7 +287,7 @@ extension AutoEquatable {
 }
 ```
 
-## [#X Using typealiases to reduce the length of method signatures](https://twitter.com/johnsundell/status/823554020639916033)
+## [#4 Using typealiases to reduce the length of method signatures](https://twitter.com/johnsundell/status/823554020639916033)
 
 One thing that I find really useful in Swift is to use typealiases to reduce the length of method signatures in generic types:
 
@@ -303,7 +303,7 @@ public class PathFinder<Object: PathFinderObject> {
 }
 ```
 
-## [#X Referencing either external or internal parameter name when writing docs](https://twitter.com/johnsundell/status/823131585830645760)
+## [#3 Referencing either external or internal parameter name when writing docs](https://twitter.com/johnsundell/status/823131585830645760)
 
 You can reference either the external or internal parameter label when writing Swift docs - and they get parsed the same:
 
@@ -324,5 +324,58 @@ class Foo {
     *   - parameter with: A string
     */
     func bar(with string: String) {}
+}
+```
+
+## [#2 Using auto closures](https://twitter.com/johnsundell/status/822097067648700418)
+
+Finding more and more uses for auto closures in Swift. Can enable some pretty nice APIs:
+
+```swift
+extension Dictionary {
+    mutating func value(for key: Key, orAdd valueClosure: @autoclosure () -> Value) -> Value {
+        if let value = self[key] {
+            return value
+        }
+        
+        let value = valueClosure()
+        self[key] = value
+        return value
+    }
+}
+```
+
+## [#1 Namespacing with nested types](https://twitter.com/johnsundell/status/821828733107634176)
+
+I’ve started to become a really big fan of nested types in Swift. Love the additional namespacing it gives you!
+
+```swift
+public struct Map {
+    public struct Model {
+        public let size: Size
+        public let theme: Theme
+        public var terrain: [Position : Terrain.Model]
+        public var units: [Position : Unit.Model]
+        public var buildings: [Position : Building.Model]
+    }
+    
+    public enum Direction {
+        case up
+        case right
+        case down
+        case left
+    }
+    
+    public struct Position {
+        public var x: Int
+        public var y: Int
+    }
+    
+    public enum Size: String {
+        case small = "S"
+        case medium = "M"
+        case large = "L"
+        case extraLarge = "XL"
+    }
 }
 ```
