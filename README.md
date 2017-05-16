@@ -287,3 +287,42 @@ extension AutoEquatable {
 }
 ```
 
+## [#X Using typealiases to reduce the length of method signatures](https://twitter.com/johnsundell/status/823554020639916033)
+
+One thing that I find really useful in Swift is to use typealiases to reduce the length of method signatures in generic types:
+
+```
+public class PathFinder<Object: PathFinderObject> {
+    public typealias Map = Object.Map
+    public typealias Node = Map.Node
+    public typealias Path = PathFinderPath<Object>
+    
+    public static func possiblePaths(for object: Object, at rootNode: Node, on map: Map) -> Path.Sequence {
+        return .init(object: object, rootNode: rootNode, map: map)
+    }
+}
+```
+
+## [#X Referencing either external or internal parameter name when writing docs](https://twitter.com/johnsundell/status/823131585830645760)
+
+You can reference either the external or internal parameter label when writing Swift docs - and they get parsed the same:
+
+```swift
+// EITHER:
+
+class Foo {
+    /**
+    *   - parameter string: A string
+    */
+    func bar(with string: String) {}
+}
+
+// OR:
+
+class Foo {
+    /**
+    *   - parameter with: A string
+    */
+    func bar(with string: String) {}
+}
+```
