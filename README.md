@@ -293,7 +293,7 @@ extension AutoEquatable {
 
 📏 One thing that I find really useful in Swift is to use typealiases to reduce the length of method signatures in generic types:
 
-```
+```swift
 public class PathFinder<Object: PathFinderObject> {
     public typealias Map = Object.Map
     public typealias Node = Map.Node
