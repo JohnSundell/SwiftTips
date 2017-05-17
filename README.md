@@ -6,7 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## [#19 Chaining optionals with map() and flatMap()](https://twitter.com/johnsundell/status/864130284140318720)
 
-Using `map()` and `flatMap()` on optionals you can chain multiple operations without having to use lengthy if lets or guards:
+Using `map()` and `flatMap()` on optionals you can chain multiple operations without having to use lengthy `if lets` or `guards`:
 
 ```swift
 // BEFORE
