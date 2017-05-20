@@ -4,6 +4,23 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#20 Combining a sequence of functions](https://twitter.com/johnsundell/status/865855870294523904)
+
+➕ While working on a new Swift developer tool (to be open sourced soon 😉), I came up with a pretty neat way of organizing its sequence of operations, by combining their functions into a closure:
+
+```swift
+internal func +<A, B, C>(lhs: @escaping (A) throws -> B,
+                         rhs: @escaping (B) throws -> C) -> (A) throws -> C {
+    return { try rhs(lhs($0)) }
+}
+
+public func run() throws {
+    try (determineTarget + build + analyze + output)()
+}
+```
+
+*If you're familiar with the functional programming world, you might know the above technique as the [pipe operator](http://theburningmonk.com/2011/09/fsharp-pipe-forward-and-pipe-backward/) (thanks to [Alexey Demedreckiy](https://twitter.com/DAlooG) for pointing this out!)*
+
 ## [#19 Chaining optionals with map() and flatMap()](https://twitter.com/johnsundell/status/864130284140318720)
 
 🗺 Using `map()` and `flatMap()` on optionals you can chain multiple operations without having to use lengthy `if lets` or `guards`:
