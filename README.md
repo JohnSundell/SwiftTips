@@ -4,6 +4,22 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#21 Using DispatchWorkItem](https://twitter.com/johnsundell/status/868849469558861824)
+
+🕓 Using dispatch work items you can easily cancel a delayed asynchronous GCD task if you no longer need it:
+
+```swift
+let workItem = DispatchWorkItem {
+    // Your async code goes in here
+}
+
+// Execute the work item after 1 second
+DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: workItem)
+
+// You can cancel the work item if you no longer need it
+workItem.cancel()
+```
+
 ## [#20 Combining a sequence of functions](https://twitter.com/johnsundell/status/865855870294523904)
 
 ➕ While working on a new Swift developer tool (to be open sourced soon 😉), I came up with a pretty neat way of organizing its sequence of operations, by combining their functions into a closure:
