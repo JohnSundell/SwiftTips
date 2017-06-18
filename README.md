@@ -4,6 +4,40 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#23 Working on async code in a playground](https://twitter.com/johnsundell/status/876044534458847232)
+
+Want to work on your async code in a Swift Playground? Just set `needsIndefiniteExecution` to true to keep it running:
+
+```swift
+import PlaygroundSupport
+
+PlaygroundPage.current.needsIndefiniteExecution = true
+
+DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+    let greeting = "Hello after 3 seconds"
+    print(greeting)
+}
+```
+
+To stop the playground from executing, simply call `PlaygroundPage.current.finishExecution()`.
+
+## [#22 Overriding self with a weak reference](https://twitter.com/johnsundell/status/874290749386477569)
+
+Avoid memory leaks when accidentially refering to `self` in closures by overriding it locally with a weak reference:
+
+```swift
+dataLoader.loadData(from: url) { [weak self] result in
+    guard let `self` = self else {
+        return
+    }
+
+    self.cache(result)
+    
+    ...
+```
+
+Note that the reason the above currently works is [because of a compiler bug](https://lists.swift.org/pipermail/swift-evolution/Week-of-Mon-20160118/007425.html) (which I hope gets turned into a properly supported feature soon).
+
 ## [#21 Using DispatchWorkItem](https://twitter.com/johnsundell/status/868849469558861824)
 
 🕓 Using dispatch work items you can easily cancel a delayed asynchronous GCD task if you no longer need it:
