@@ -4,9 +4,63 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#25 Using associated enum values to avoid state-specific optionals](https://twitter.com/johnsundell/status/879427146367848448)
+
+🎉 Using associated enum values is a super nice way to encapsulate mutually exclusive state info (and avoiding state-specific optionals).
+
+```swift
+// BEFORE: Lots of state-specific, optional properties
+
+class Player {
+    var isWaitingForMatchMaking: Bool
+    var invitingUser: User?
+    var numberOfLives: Int
+    var playerDefeatedBy: Player?
+    var roundDefeatedIn: Int?
+}
+
+// AFTER: All state-specific information is encapsulated in enum cases
+
+class Player {
+    enum State {
+        case waitingForMatchMaking
+        case waitingForInviteResponse(from: User)
+        case active(numberOfLives: Int)
+        case defeated(by: Player, roundNumber: Int)
+    }
+    
+    var state: State
+}
+```
+
+## [#24 Using enums for async result types](https://twitter.com/johnsundell/status/876920087885877248)
+
+👍 I really like using enums for all async result types, even boolean ones. Self-documenting, and makes the call site a lot nicer to read too!
+
+```swift
+protocol PushNotificationService {
+    // Before
+    func enablePushNotifications(completionHandler: @escaping (Bool) -> Void)
+    
+    // After
+    func enablePushNotifications(completionHandler: @escaping (PushNotificationStatus) -> Void)
+}
+
+enum PushNotificationStatus {
+    case enabled
+    case disabled
+}
+
+service.enablePushNotifications { status in
+    if status == .enabled {
+        enableNotificationsButton.removeFromSuperview()
+    }
+}
+```
+
 ## [#23 Working on async code in a playground](https://twitter.com/johnsundell/status/876044534458847232)
 
-Want to work on your async code in a Swift Playground? Just set `needsIndefiniteExecution` to true to keep it running:
+🏃 Want to work on your async code in a Swift Playground? Just set `needsIndefiniteExecution` to true to keep it running:
 
 ```swift
 import PlaygroundSupport
@@ -23,7 +77,7 @@ To stop the playground from executing, simply call `PlaygroundPage.current.finis
 
 ## [#22 Overriding self with a weak reference](https://twitter.com/johnsundell/status/874290749386477569)
 
-Avoid memory leaks when accidentially refering to `self` in closures by overriding it locally with a weak reference:
+💦 Avoid memory leaks when accidentially refering to `self` in closures by overriding it locally with a weak reference:
 
 ```swift
 dataLoader.loadData(from: url) { [weak self] result in
