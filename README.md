@@ -4,6 +4,29 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#26 Using closure types in generic constraints](https://twitter.com/johnsundell/status/884794185722859520)
+
+🔗 You can use closure types in generic constraints in Swift. Enables nice APIs for handling sequences of closures.
+
+```swift
+extension Sequence where Element == () -> Void {
+    func callAll() {
+        forEach { $0() }
+    }
+}
+
+extension Sequence where Element == () -> String {
+    func joinedResults(separator: String) -> String {
+        return map { $0() }.joined(separator: separator)
+    }
+}
+
+callbacks.callAll()
+let names = nameProviders.joinedResults(separator: ", ")
+```
+
+*(If you're using Swift 3, you have to change `Element` to `Iterator.Element`)*
+
 ## [#25 Using associated enum values to avoid state-specific optionals](https://twitter.com/johnsundell/status/879427146367848448)
 
 🎉 Using associated enum values is a super nice way to encapsulate mutually exclusive state info (and avoiding state-specific optionals).
