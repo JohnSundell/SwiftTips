@@ -4,6 +4,50 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#28 Defining static URLs using string literals](https://twitter.com/johnsundell/status/886876157479616513)
+
+🌏 Tired of using `URL(string: "url")!` for static URLs? Make `URL` conform to `ExpressibleByStringLiteral` and you can now simply use `"url"` instead.
+
+```swift
+extension URL: ExpressibleByStringLiteral {
+    // By using 'StaticString' we disable string interpolation, for safety
+    public init(stringLiteral value: StaticString) {
+        self = URL(string: "\(value)").require(hint: "Invalid URL string literal: \(value)")
+    }
+}
+
+// We can now define URLs using static string literals 🎉
+let url: URL = "https://www.swiftbysundell.com"
+let task = URLSession.shared.dataTask(with: "https://www.swiftbysundell.com")
+
+// In Swift 3 or earlier, you also have to implement 2 additional initializers
+extension URL {
+    public init(extendedGraphemeClusterLiteral value: StaticString) {
+        self.init(stringLiteral: value)
+    }
+
+    public init(unicodeScalarLiteral value: StaticString) {
+        self.init(stringLiteral: value)
+    }
+}
+```
+
+## [#27 Manipulating points, sizes and frames using math operators](https://twitter.com/johnsundell/status/885486106594115584)
+
+✚ I'm always careful with operator overloading, but for manipulating things like sizes, points & frames I find them super useful.
+
+```swift
+extension CGSize {
+    static func *(lhs: CGSize, rhs: CGFloat) -> CGSize {
+        return CGSize(width: lhs.width * rhs, height: lhs.height * rhs)
+    }
+}
+
+button.frame.size = image.size * 2
+```
+
+*If you like the above idea, check out [CGOperators](https://github.com/JohnSundell/CGOperators), which contains math operator overloads for all Core Graphics' vector types.*
+
 ## [#26 Using closure types in generic constraints](https://twitter.com/johnsundell/status/884794185722859520)
 
 🔗 You can use closure types in generic constraints in Swift. Enables nice APIs for handling sequences of closures.
