@@ -32,6 +32,8 @@ extension URL {
 }
 ```
 
+*To find the extension that adds the `require()` method on `Optional` that I use above, check out [Require](https://github.com/johnsundell/require).*
+
 ## [#27 Manipulating points, sizes and frames using math operators](https://twitter.com/johnsundell/status/885486106594115584)
 
 ✚ I'm always careful with operator overloading, but for manipulating things like sizes, points & frames I find them super useful.
