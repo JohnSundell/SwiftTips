@@ -4,6 +4,22 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#29 Making weak or lazy properties readonly](https://twitter.com/johnsundell/status/890906366143078400)
+
+👓 If you have a property in Swift that needs to be `weak` or `lazy`, you can still make it readonly by using `private(set)`.
+
+```swift
+class Node {
+    private(set) weak var parent: Node?
+    private(set) lazy var children = [Node]()
+
+    func add(child: Node) {
+        children.append(child)
+        child.parent = self
+    }
+}
+```
+
 ## [#28 Defining static URLs using string literals](https://twitter.com/johnsundell/status/886876157479616513)
 
 🌏 Tired of using `URL(string: "url")!` for static URLs? Make `URL` conform to `ExpressibleByStringLiteral` and you can now simply use `"url"` instead.
