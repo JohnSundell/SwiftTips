@@ -4,6 +4,25 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#33 Using map to transform an optional into a Result type](https://twitter.com/johnsundell/status/896317661302444033)
+
+🗺 Using `map` you can transform an optional value into an optional `Result` type by simply passing in the enum case.
+
+```swift
+enum Result<Value> {
+    case value(Value)
+    case error(Error)
+}
+
+class Promise<Value> {
+    private var result: Result<Value>?
+    
+    init(value: Value? = nil) {
+        result = value.map(Result.value)
+    }
+}
+```
+
 ## [#32 Assigning to self in struct initializers](https://twitter.com/johnsundell/status/896024128330891264)
 
 👌 It's so nice that you can assign directly to `self` in `struct` initializers in Swift. Very useful when adding conformance to protocols.
