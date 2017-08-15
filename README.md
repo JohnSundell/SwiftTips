@@ -4,6 +4,23 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#32 Assigning to self in struct initializers](https://twitter.com/johnsundell/status/896024128330891264)
+
+👌 It's so nice that you can assign directly to `self` in `struct` initializers in Swift. Very useful when adding conformance to protocols.
+
+```swift
+extension Bool: AnswerConvertible {
+    public init(input: String) throws {
+        switch input.lowercased() {
+        case "y", "yes", "👍":
+            self = true
+        default:
+            self = false
+        }
+    }
+}
+```
+
 ## [#31 Recusively calling closures as inline functions](https://twitter.com/johnsundell/status/894580870786539520)
 
 ☎️ Defining Swift closures as inline functions enables you to recursively call them, which is super useful in things like custom sequences.
