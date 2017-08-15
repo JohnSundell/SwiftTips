@@ -4,6 +4,62 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#31 Recusively calling closures as inline functions](https://twitter.com/johnsundell/status/894580870786539520)
+
+☎️ Defining Swift closures as inline functions enables you to recursively call them, which is super useful in things like custom sequences.
+
+```swift
+class Database {
+    func records(matching query: Query) -> AnySequence<Record> {
+        var recordIterator = loadRecords().makeIterator()
+        
+        func iterate() -> Record? {
+            guard let nextRecord = recordIterator.next() else {
+                return nil
+            }
+            
+            guard nextRecord.matches(query) else {
+                // Since the closure is an inline function, it can be recursively called,
+                // in this case in order to advance to the next item.
+                return iterate()
+            }
+            
+            return nextRecord
+        }
+        
+        // AnySequence/AnyIterator are part of the standard library and provide an easy way
+        // to define custom sequences using closures.
+        return AnySequence { AnyIterator(iterate) }
+    }
+}
+```
+
+*[Rob Napier](https://twitter.com/cocoaphony) points out that using the above might cause crashes if used on a large databaset, since Swift has no guaranteed [Tail Call](https://en.wikipedia.org/wiki/Tail_call) Optimization (TCO).*
+
+*[Slava Pestov](https://twitter.com/slava_pestov) also points out that another benefit of inline functions vs closures is that they can have their own generic parameter list.*
+
+## [#30 Passing self to required Objective-C dependencies](https://twitter.com/johnsundell/status/892751766227480576)
+
+🏖 Using lazy properties in Swift, you can pass `self` to required Objective-C dependencies without having to use force-unwrapped optionals.
+
+```swift
+class DataLoader: NSObject {
+    lazy var urlSession: URLSession = self.makeURLSession()
+    
+    private func makeURLSession() -> URLSession {
+        return URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+    }
+}
+
+class Renderer {
+    lazy var displayLink: CADisplayLink = self.makeDisplayLink()
+    
+    private func makeDisplayLink() -> CADisplayLink {
+        return CADisplayLink(target: self, selector: #selector(screenDidRefresh))
+    }
+}
+```
+
 ## [#29 Making weak or lazy properties readonly](https://twitter.com/johnsundell/status/890906366143078400)
 
 👓 If you have a property in Swift that needs to be `weak` or `lazy`, you can still make it readonly by using `private(set)`.
