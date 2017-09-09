@@ -4,6 +4,23 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#36 Setting up tests to avoid retain cycles with weak references](https://twitter.com/johnsundell/status/899982180776017920)
+
+🚳 Here's an easy way to setup a test to avoid accidental retain cycles with object relationships (like weak delegates & observers) in Swift:
+
+```swift
+func testDelegateNotRetained() {
+    // Assign the delegate (weak) and also retain it using a local var
+    var delegate: Delegate? = DelegateMock()
+    controller.delegate = delegate
+    XCTAssertNotNil(controller.delegate)
+    
+    // Release the local var, which should also release the weak reference
+    delegate = nil
+    XCTAssertNil(controller.delegate)
+}
+```
+
 ## [#35 Expressively matching a value against a list of candidates](https://twitter.com/johnsundell/status/899745079987982338)
 
 👨‍🔬 Playing around with an expressive way to check if a value matches any of a list of candidates in Swift:
