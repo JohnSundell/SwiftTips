@@ -4,6 +4,27 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#38 Switching on a set](https://twitter.com/johnsundell/status/906097785883242496)
+
+You can switch on a set using array literals as cases in Swift! Can be really useful to avoid many `if`/`else if` statements.
+
+```swift
+class RoadTile: Tile {
+    var connectedDirections = Set<Direction>()
+
+    func render() {
+        switch connectedDirections {
+        case [.up, .down]:
+            image = UIImage(named: "road-vertical")
+        case [.left, .right]:
+            image = UIImage(named: "road-horizontal")
+        default:
+            image = UIImage(named: "road")
+        }
+    }
+}
+```
+
 ## [#37 Adding the current locale to cache keys](https://twitter.com/johnsundell/status/900290163376607232)
 
 🌍 When caching localized content in an app, it's a good idea to add the current locale to all keys, to prevent bugs when switching languages.
