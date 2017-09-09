@@ -4,6 +4,33 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#34 Organizing code using extensions](https://twitter.com/johnsundell/status/897186531592556545)
+
+APIs in a Swift extension automatically inherit its access control level, making it a neat way to organize public, internal & private APIs.
+
+```swift
+public extension Animation {
+    init(textureNamed textureName: String) {
+        frames = [Texture(name: textureName)]
+    }
+    
+    init(texturesNamed textureNames: [String], frameDuration: TimeInterval = 1) {
+        frames = textureNames.map(Texture.init)
+        self.frameDuration = frameDuration
+    }
+    
+    init(image: Image) {
+        frames = [Texture(image: image)]
+    }
+}
+
+internal extension Animation {
+    func loadFrameImages() -> [Image] {
+        return frames.map { $0.loadImageIfNeeded() }
+    }
+}
+```
+
 ## [#33 Using map to transform an optional into a Result type](https://twitter.com/johnsundell/status/896317661302444033)
 
 🗺 Using `map` you can transform an optional value into an optional `Result` type by simply passing in the enum case.
