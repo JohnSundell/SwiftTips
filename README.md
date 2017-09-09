@@ -4,9 +4,29 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#35 Expressively matching a value against a list of candidates](https://twitter.com/johnsundell/status/899745079987982338)
+
+👨‍🔬 Playing around with an expressive way to check if a value matches any of a list of candidates in Swift:
+
+```swift
+// Instead of multiple conditions like this:
+
+if string == "One" || string == "Two" || string == "Three" {
+
+}
+
+// You can now do:
+
+if string == any(of: "One", "Two", "Three") {
+
+}
+```
+
+*You can find a [gist with the implementation here](https://gist.github.com/JohnSundell/1956ce36b9303eb4bf912da0de9e2844).*
+
 ## [#34 Organizing code using extensions](https://twitter.com/johnsundell/status/897186531592556545)
 
-APIs in a Swift extension automatically inherit its access control level, making it a neat way to organize public, internal & private APIs.
+👪 APIs in a Swift extension automatically inherit its access control level, making it a neat way to organize public, internal & private APIs.
 
 ```swift
 public extension Animation {
