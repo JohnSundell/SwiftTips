@@ -4,6 +4,28 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com) 😀
 
+## [#37 Adding the current locale to cache keys](https://twitter.com/johnsundell/status/900290163376607232)
+
+🌍 When caching localized content in an app, it's a good idea to add the current locale to all keys, to prevent bugs when switching languages.
+
+```swift
+func cache(_ content: Content, forKey key: String) throws {
+    let data = try wrap(content) as Data
+    let key = localize(key: key)
+    try storage.store(data, forKey: key)
+}
+
+func loadCachedContent(forKey key: String) -> Content? {
+    let key = localize(key: key)
+    let data = storage.loadData(forKey: key)
+    return data.flatMap { try? unbox(data: $0) }
+}
+
+private func localize(key: String) -> String {
+    return key + "-" + Bundle.main.preferredLocalizations[0]
+}
+```
+
 ## [#36 Setting up tests to avoid retain cycles with weak references](https://twitter.com/johnsundell/status/899982180776017920)
 
 🚳 Here's an easy way to setup a test to avoid accidental retain cycles with object relationships (like weak delegates & observers) in Swift:
