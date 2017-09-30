@@ -4,9 +4,35 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#39 Internally mutable protocol-oriented APIs](https://twitter.com/johnsundell/status/914069005786341379)
+
+🤖 You can easily define a protocol-oriented API that can only be mutated internally, by using an internal protocol that extends a public one.
+
+```swift
+// Declare a public protocol that acts as your immutable API
+public protocol ModelHolder {
+    associatedtype Model
+    var model: Model { get }
+}
+
+// Declare an extended, internal protocol that provides a mutable API
+internal protocol MutableModelHolder: ModelHolder {
+    var model: Model { get set }
+}
+
+// You can now implement the requirements using 'public internal(set)'
+public class UserHolder: MutableModelHolder {
+    public internal(set) var model: User
+
+    internal init(model: User) {
+        self.model = model
+    }
+}
+```
+
 ## [#38 Switching on a set](https://twitter.com/johnsundell/status/906097785883242496)
 
-You can switch on a set using array literals as cases in Swift! Can be really useful to avoid many `if`/`else if` statements.
+🎛 You can switch on a set using array literals as cases in Swift! Can be really useful to avoid many `if`/`else if` statements.
 
 ```swift
 class RoadTile: Tile {
