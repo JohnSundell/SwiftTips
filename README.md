@@ -4,6 +4,38 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#42 Type inference for lazy properties in Swift 4](https://twitter.com/johnsundell/status/925826172738514945)
+
+🎉 In Swift 4, type inference works for lazy properties and you don't need to explicitly refer to `self`!
+
+```swift
+// Swift 3
+
+class PurchaseView: UIView {
+    private lazy var buyButton: UIButton = self.makeBuyButton()
+    
+    private func makeBuyButton() -> UIButton {
+        let button = UIButton()
+        button.setTitle("Buy", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        return button
+    }
+}
+
+// Swift 4
+
+class PurchaseView: UIView {
+    private lazy var buyButton = makeBuyButton()
+    
+    private func makeBuyButton() -> UIButton {
+        let button = UIButton()
+        button.setTitle("Buy", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        return button
+    }
+}
+```
+
 ## [#41 Converting Swift errors to NSError](https://twitter.com/johnsundell/status/923221568175603712)
 
 😎 You can turn any Swift `Error` into an `NSError`, which is super useful when pattern matching with a code 👍. Also, switching on optionals is pretty cool!
