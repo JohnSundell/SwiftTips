@@ -4,6 +4,27 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#41 Converting Swift errors to NSError](https://twitter.com/johnsundell/status/923221568175603712)
+
+😎 You can turn any Swift `Error` into an `NSError`, which is super useful when pattern matching with a code 👍. Also, switching on optionals is pretty cool!
+
+```swift
+let task = urlSession.dataTask(with: url) { data, _, error in
+    switch error {
+    case .some(let error as NSError) where error.code == NSURLErrorNotConnectedToInternet:
+        presenter.showOfflineView()
+    case .some(let error):
+        presenter.showGenericErrorView()
+    case .none:
+        presenter.renderContent(from: data)
+    }
+}
+
+task.resume()
+```
+
+Also make sure to check out [Kostas Kremizas' tip](https://twitter.com/kostaskremizas/status/923228453784170497) about how you can pattern match directly against a member of `URLError`.
+
 ## [#40 Making UIImage macOS compatible](https://twitter.com/johnsundell/status/915593457082740736)
 
 🖥 Here's an easy way to make iOS model code that uses `UIImage` macOS compatible - like me and [Gui Rambo](https://twitter.com/_inside) discussed on the [Swift by Sundell Podcast](https://swiftbysundell.com/podcast/7).
