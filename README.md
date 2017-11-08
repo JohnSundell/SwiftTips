@@ -4,6 +4,40 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#40 Making UIImage macOS compatible](https://twitter.com/johnsundell/status/915593457082740736)
+
+🖥 Here's an easy way to make iOS model code that uses `UIImage` macOS compatible - like me and [Gui Rambo](https://twitter.com/_inside) discussed on the [Swift by Sundell Podcast](https://swiftbysundell.com/podcast/7).
+
+```swift
+// Either put this in a separate file that you only include in your macOS target or wrap the code in #if os(macOS) / #endif
+
+import Cocoa
+
+// Step 1: Typealias UIImage to NSImage
+typealias UIImage = NSImage
+
+// Step 2: You might want to add these APIs that UIImage has but NSImage doesn't.
+extension NSImage {
+    var cgImage: CGImage? {
+        var proposedRect = CGRect(origin: .zero, size: size)
+
+        return cgImage(forProposedRect: &proposedRect,
+                       context: nil,
+                       hints: nil)
+    }
+
+    convenience init?(named name: String) {
+        self.init(named: Name(name))
+    }
+}
+
+// Step 3: Profit - you can now make your model code that uses UIImage cross-platform!
+struct User {
+    let name: String
+    let profileImage: UIImage
+}
+```
+
 ## [#39 Internally mutable protocol-oriented APIs](https://twitter.com/johnsundell/status/914069005786341379)
 
 🤖 You can easily define a protocol-oriented API that can only be mutated internally, by using an internal protocol that extends a public one.
