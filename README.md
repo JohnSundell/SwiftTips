@@ -4,6 +4,36 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#44 Calling functions as closures with a tuple as parameters](https://twitter.com/johnsundell/status/930103466294435840)
+
+🚀 One really cool aspect of Swift having first class functions is that you can pass any function (or even initializer) as a closure, and even call it with a tuple containing its parameters!
+
+```swift
+// This function lets us treat any "normal" function or method as
+// a closure and run it with a tuple that contains its parameters
+func call<Input, Output>(_ function: (Input) -> Output, with input: Input) -> Output {
+    return function(input)
+}
+
+class ViewFactory {
+    func makeHeaderView() -> HeaderView {
+        // We can now pass an initializer as a closure, and a tuple
+        // containing its parameters
+        return call(HeaderView.init, with: loadTextStyles())
+    }
+    
+    private func loadTextStyles() -> (font: UIFont, color: UIColor) {
+        return (theme.font, theme.textColor)
+    }
+}
+
+class HeaderView {
+    init(font: UIFont, textColor: UIColor) {
+        ...
+    }
+}
+```
+
 ## [#43 Enabling static dependency injection](https://twitter.com/johnsundell/status/928630015390027778)
 
 💉 If you've been struggling to test code that uses static APIs, here's a technique you can use to enable static dependency injection without having to modify any call sites:
