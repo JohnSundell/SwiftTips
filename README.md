@@ -4,6 +4,37 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#45 Using dot syntax for static properties and initializers](https://twitter.com/johnsundell/status/931270709824884736)
+
+✒️ Dot syntax is one of my favorite features of Swift. What's really cool is that it's not only for enums, any static method or property can be used with dot syntax - even initializers! Perfect for convenience APIs and default parameters.
+
+```swift
+public enum RepeatMode {
+    case times(Int)
+    case forever
+}
+
+public extension RepeatMode {
+    static var never: RepeatMode {
+        return .times(0)
+    }
+
+    static var once: RepeatMode {
+        return .times(1)
+    }
+}
+
+view.perform(animation, repeated: .once)
+
+// To make default parameters more compact, you can even use init with dot syntax
+
+class ImageLoader {
+    init(cache: Cache = .init(), decoder: ImageDecoder: .init()) {
+        ...
+    }
+}
+```
+
 ## [#44 Calling functions as closures with a tuple as parameters](https://twitter.com/johnsundell/status/930103466294435840)
 
 🚀 One really cool aspect of Swift having first class functions is that you can pass any function (or even initializer) as a closure, and even call it with a tuple containing its parameters!
