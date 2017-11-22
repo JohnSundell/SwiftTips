@@ -4,6 +4,36 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#43 Enabling static dependency injection](https://twitter.com/johnsundell/status/928630015390027778)
+
+💉 If you've been struggling to test code that uses static APIs, here's a technique you can use to enable static dependency injection without having to modify any call sites:
+
+```swift
+// Before: Almost impossible to test due to the use of singletons
+
+class Analytics {
+    static func log(_ event: Event) {
+        Database.shared.save(event)
+        
+        let dictionary = event.serialize()
+        NetworkManager.shared.post(dictionary, to: eventURL)
+    }
+}
+
+// After: Much easier to test, since we can inject mocks as arguments
+
+class Analytics {
+    static func log(_ event: Event,
+                    database: Database = .shared,
+                    networkManager: NetworkManager = .shared) {
+        database.save(event)
+        
+        let dictionary = event.serialize()
+        networkManager.post(dictionary, to: eventURL)
+    }
+}
+```
+
 ## [#42 Type inference for lazy properties in Swift 4](https://twitter.com/johnsundell/status/925826172738514945)
 
 🎉 In Swift 4, type inference works for lazy properties and you don't need to explicitly refer to `self`!
