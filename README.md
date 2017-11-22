@@ -4,6 +4,36 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
+## [#46 Variable shadowing](https://twitter.com/johnsundell/status/931549161782169600)
+
+👻 Variable shadowing can be super useful in Swift, especially when you want to create a local copy of a parameter value in order to use it as state within a closure.
+
+```swift
+init(repeatMode: RepeatMode, closure: @escaping () -> UpdateOutcome) {
+    // Shadow the argument with a local, mutable copy
+    var repeatMode = repeatMode
+    
+    self.closure = {
+        // With shadowing, there's no risk of accidentially
+        // referring to the immutable version
+        switch repeatMode {
+        case .forever:
+            break
+        case .times(let count):
+            guard count > 0 else {
+                return .finished
+            }
+            
+            // We can now capture the mutable version and use
+            // it for state in a closure
+            repeatMode = .times(count - 1)
+        }
+        
+        return closure()
+    }
+}
+```
+
 ## [#45 Using dot syntax for static properties and initializers](https://twitter.com/johnsundell/status/931270709824884736)
 
 ✒️ Dot syntax is one of my favorite features of Swift. What's really cool is that it's not only for enums, any static method or property can be used with dot syntax - even initializers! Perfect for convenience APIs and default parameters.
