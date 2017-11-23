@@ -59,7 +59,7 @@ view.perform(animation, repeated: .once)
 // To make default parameters more compact, you can even use init with dot syntax
 
 class ImageLoader {
-    init(cache: Cache = .init(), decoder: ImageDecoder: .init()) {
+    init(cache: Cache = .init(), decoder: ImageDecoder = .init()) {
         ...
     }
 }
