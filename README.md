@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#47 Using where with for-loops](https://github.com/johnsundell/swifttips#47-using-where-with-for-loops)
 [#46 Variable shadowing](https://github.com/JohnSundell/SwiftTips#46-variable-shadowing)   
 [#45 Using dot syntax for static properties and initializers](https://github.com/JohnSundell/SwiftTips#45-using-dot-syntax-for-static-properties-and-initializers)   
 [#44 Calling functions as closures with a tuple as parameters](https://github.com/JohnSundell/SwiftTips#44-calling-functions-as-closures-with-a-tuple-as-parameters)   
