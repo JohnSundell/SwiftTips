@@ -4,7 +4,7 @@ One of the things I really love about Swift is how I keep finding interesting wa
 
 I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
 
-## Table of contents:
+## Table of contents
 
 [#46 Variable shadowing](https://github.com/JohnSundell/SwiftTips#46-variable-shadowing)   
 [#45 Using dot syntax for static properties and initializers](https://github.com/JohnSundell/SwiftTips#45-using-dot-syntax-for-static-properties-and-initializers)   
@@ -51,7 +51,25 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#4 Using typealiases to reduce the length of method signatures](https://github.com/JohnSundell/SwiftTips#4-using-typealiases-to-reduce-the-length-of-method-signatures)   
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
-[#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)   
+[#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#47 Using where with for-loops](https://twitter.com/johnsundell/status/935910564865433601)
+
+🗺 Using the `where` keyword can be a super nice way to quickly apply a filter in a `for`-loop in Swift. You can of course use `map`, `filter` and `forEach`, or `guard`, but for simple loops I think this is very expressive and nice.
+
+```swift
+func archiveMarkedPosts() {
+    for post in posts where post.isMarked {
+        archive(post)
+    }
+}
+
+func healAllies() {
+    for player in players where player.isAllied(to: currentPlayer) {
+        player.heal()
+    }
+}
+```
 
 ## [#46 Variable shadowing](https://twitter.com/johnsundell/status/931549161782169600)
 
