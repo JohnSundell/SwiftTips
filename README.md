@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#48 Extending optionals](https://github.com/johnsundell/swifttips#48-extending-optionals)  
 [#47 Using where with for-loops](https://github.com/johnsundell/swifttips#47-using-where-with-for-loops)   
 [#46 Variable shadowing](https://github.com/JohnSundell/SwiftTips#46-variable-shadowing)   
 [#45 Using dot syntax for static properties and initializers](https://github.com/JohnSundell/SwiftTips#45-using-dot-syntax-for-static-properties-and-initializers)   
@@ -53,6 +54,50 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#48 Extending optionals](https://twitter.com/johnsundell/status/938137780760215553)
+
+❤️ I love the fact that optionals are enums in Swift - it makes it so easy to extend them with convenience APIs for certain types. Especially useful when doing things like data validation on optional values.
+
+```swift
+func validateTextFields() -> Bool {
+    guard !usernameTextField.text.isNilOrEmpty else {
+        return false
+    }
+
+    ...
+
+    return true
+}
+
+// Since all optionals are actual enum values in Swift, we can easily
+// extend them for certain types, to add our own convenience APIs
+
+extension Optional where Wrapped == String {
+    var isNilOrEmpty: Bool {
+        switch self {
+        case let string?:
+            return string.isEmpty
+        case nil:
+            return true
+        }
+    }
+}
+
+// Since strings are now Collections in Swift 4, you can even
+// add this property to all optional collections:
+
+extension Optional where Wrapped: Collection {
+    var isNilOrEmpty: Bool {
+        switch self {
+        case let collection?:
+            return collection.isEmpty
+        case nil:
+            return true
+        }
+    }
+}
+```
 
 ## [#47 Using where with for-loops](https://twitter.com/johnsundell/status/935910564865433601)
 
