@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#50 UIKit default arguments](https://github.com/johnsundell/swifttips#50-uikit-default-arguments)  
 [#49 Avoiding Massive View Controllers](https://github.com/johnsundell/swifttips#49-avoiding-massive-view-controllers)  
 [#48 Extending optionals](https://github.com/johnsundell/swifttips#48-extending-optionals)  
 [#47 Using where with for-loops](https://github.com/johnsundell/swifttips#47-using-where-with-for-loops)   
@@ -55,6 +56,38 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#50 UIKit default arguments](https://twitter.com/johnsundell/status/940330427855892480)
+
+👏 It's awesome that many UIKit APIs with completion handlers and other optional parameters import into Swift with default arguments (even though they are written in Objective-C). Getting rid of all those nil arguments is so nice!
+
+```swift
+// BEFORE: All parameters are specified, just like in Objective-C
+
+viewController.present(modalViewController, animated: true, completion: nil)
+
+modalViewController.dismiss(animated: true, completion: nil)
+
+viewController.transition(from: loadingViewController,
+                          to: contentViewController,
+                          duration: 0.3,
+                          options: [],
+                          animations: animations,
+                          completion: nil)
+
+// AFTER: Since many UIKit APIs with completion handlers and other
+// optional parameters import into Swift with default arguments,
+// we can make our calls shorter
+
+viewController.present(modalViewController, animated: true)
+
+modalViewController.dismiss(animated: true)
+
+viewController.transition(from: loadingViewController,
+                          to: contentViewController,
+                          duration: 0.3,
+                          animations: animations)
+```
 
 ## [#49 Avoiding Massive View Controllers](https://twitter.com/johnsundell/status/938505299723505664)
 
