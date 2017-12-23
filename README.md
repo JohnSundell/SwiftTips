@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#51 UIView bounds and transforms](https://github.com/johnsundell/swifttips#50-uiview-bounds-and-transforms)  
 [#50 UIKit default arguments](https://github.com/johnsundell/swifttips#50-uikit-default-arguments)  
 [#49 Avoiding Massive View Controllers](https://github.com/johnsundell/swifttips#49-avoiding-massive-view-controllers)  
 [#48 Extending optionals](https://github.com/johnsundell/swifttips#48-extending-optionals)  
@@ -56,6 +57,19 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#51 UIView bounds and transforms](https://twitter.com/johnsundell/status/943156901428256770)
+
+📐 A really interesting side-effect of a `UIView`'s `bounds` being its rect within its own coordinate system is that transforms don't affect it at all. That's why it's usually a better fit than `frame` when doing layout calculations of subviews.
+
+```swift
+let view = UIView()
+view.frame.size = CGSize(width: 100, height: 100)
+view.transform = CGAffineTransform(scaleX: 2, y: 2)
+
+print(view.frame) // (-50.0, -50.0, 200.0, 200.0)
+print(view.bounds) // (0.0, 0.0, 100.0, 100.0)
+```
 
 ## [#50 UIKit default arguments](https://twitter.com/johnsundell/status/940330427855892480)
 
