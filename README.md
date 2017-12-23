@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#49 Avoiding Massive View Controllers](https://github.com/johnsundell/swifttips#49-avoiding-massive-view-controllers)
 [#48 Extending optionals](https://github.com/johnsundell/swifttips#48-extending-optionals)  
 [#47 Using where with for-loops](https://github.com/johnsundell/swifttips#47-using-where-with-for-loops)   
 [#46 Variable shadowing](https://github.com/JohnSundell/SwiftTips#46-variable-shadowing)   
@@ -54,6 +55,34 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#49 Avoiding Massive View Controllers](https://twitter.com/johnsundell/status/938505299723505664)
+
+✂️ Avoiding Massive View Controllers is all about finding the right levels of abstraction and splitting things up.
+
+My personal rule of thumb is that as soon as I have 3 methods or properties that have the same prefix, I break them out into their own type.
+
+```swift
+// BEFORE
+
+class LoginViewController: UIViewController {
+    private lazy var signUpLabel = UILabel()
+    private lazy var signUpImageView = UIImageView()
+    private lazy var signUpButton = UIButton()
+}
+
+// AFTER
+
+class LoginViewController: UIViewController {
+    private lazy var signUpView = SignUpView()
+}
+
+class SignUpView: UIView {
+    private lazy var label = UILabel()
+    private lazy var imageView = UIImageView()
+    private lazy var button = UIButton()
+}
+```
 
 ## [#48 Extending optionals](https://twitter.com/johnsundell/status/938137780760215553)
 
