@@ -6,7 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
-[#49 Avoiding Massive View Controllers](https://github.com/johnsundell/swifttips#49-avoiding-massive-view-controllers)
+[#49 Avoiding Massive View Controllers](https://github.com/johnsundell/swifttips#49-avoiding-massive-view-controllers)  
 [#48 Extending optionals](https://github.com/johnsundell/swifttips#48-extending-optionals)  
 [#47 Using where with for-loops](https://github.com/johnsundell/swifttips#47-using-where-with-for-loops)   
 [#46 Variable shadowing](https://github.com/JohnSundell/SwiftTips#46-variable-shadowing)   
