@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#52 Expressively comparing a value with a list of candidates](https://github.com/johnsundell/swifttips#52-expressively-comparing-a-value-with-a-list-of-candidates)  
 [#51 UIView bounds and transforms](https://github.com/johnsundell/swifttips#51-uiview-bounds-and-transforms)  
 [#50 UIKit default arguments](https://github.com/johnsundell/swifttips#50-uikit-default-arguments)  
 [#49 Avoiding Massive View Controllers](https://github.com/johnsundell/swifttips#49-avoiding-massive-view-controllers)  
@@ -57,6 +58,22 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#52 Expressively comparing a value with a list of candidates](https://twitter.com/johnsundell/status/943510426586959873)
+
+👨‍🔬 Continuing to experiment with expressive ways of comparing a value with a list of candidates in Swift. Adding an extension on Equatable is probably my favorite approach so far.
+
+```swift
+extension Equatable {
+    func isAny(of candidates: Self...) -> Bool {
+        return candidates.contains(self)
+    }
+}
+
+let isHorizontal = direction.isAny(of: .left, .right)
+```
+
+*See [tip #35](https://github.com/JohnSundell/SwiftTips#35-expressively-matching-a-value-against-a-list-of-candidates) for my previous experiment.*
 
 ## [#51 UIView bounds and transforms](https://twitter.com/johnsundell/status/943156901428256770)
 
