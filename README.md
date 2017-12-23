@@ -6,7 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
-[#51 UIView bounds and transforms](https://github.com/johnsundell/swifttips#50-uiview-bounds-and-transforms)  
+[#51 UIView bounds and transforms](https://github.com/johnsundell/swifttips#51-uiview-bounds-and-transforms)  
 [#50 UIKit default arguments](https://github.com/johnsundell/swifttips#50-uikit-default-arguments)  
 [#49 Avoiding Massive View Controllers](https://github.com/johnsundell/swifttips#49-avoiding-massive-view-controllers)  
 [#48 Extending optionals](https://github.com/johnsundell/swifttips#48-extending-optionals)  
