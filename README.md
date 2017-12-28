@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#53 String-based enums in string interpolation](https://github.com/johnsundell/swifttips#53-string-based-enums-in-string-interpolation)  
 [#52 Expressively comparing a value with a list of candidates](https://github.com/johnsundell/swifttips#52-expressively-comparing-a-value-with-a-list-of-candidates)  
 [#51 UIView bounds and transforms](https://github.com/johnsundell/swifttips#51-uiview-bounds-and-transforms)  
 [#50 UIKit default arguments](https://github.com/johnsundell/swifttips#50-uikit-default-arguments)  
@@ -58,6 +59,37 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#53 String-based enums in string interpolation](https://twitter.com/johnsundell/status/945686980125437954)
+
+🍣 Even if you define a custom raw value for a string-based enum in Swift, the full case name will be used in string interpolation.
+
+Super useful when using separate raw values for JSON, while still wanting to use the full case name in other contexts.
+
+```swift
+extension Building {
+    // This enum has custom raw values that are used when decoding
+    // a value, for example from JSON.
+    enum Kind: String {
+        case castle = "C"
+        case town = "T"
+        case barracks = "B"
+        case goldMine = "G"
+        case camp = "CA"
+        case blacksmith = "BL"
+    }
+
+    var animation: Animation {
+        return Animation(
+            // When used in string interpolation, the full case name is still used.
+            // For 'castle' this will be 'buildings/castle'.
+            name: "buildings/\(kind)",
+            frameCount: frameCount,
+            frameDuration: frameDuration
+        )
+    }
+}
+```
 
 ## [#52 Expressively comparing a value with a list of candidates](https://twitter.com/johnsundell/status/943510426586959873)
 
