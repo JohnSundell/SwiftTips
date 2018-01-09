@@ -6,7 +6,8 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
-[#55 Dropping suffixes from method names to support multiple arguments](https://github.com/johnsundell/swifttips#54-dropping-suffixes-from-method-names-to-support-multiple-arguments)  
+[#56 Calling instance methods as static functions](https://github.com/johnsundell/swifttips#56-calling-instance-methods-as-static-functions)  
+[#55 Dropping suffixes from method names to support multiple arguments](https://github.com/johnsundell/swifttips#55-dropping-suffixes-from-method-names-to-support-multiple-arguments)  
 [#54 Constraining protocols to classes to ensure mutability](https://github.com/johnsundell/swifttips#54-constraining-protocols-to-classes-to-ensure-mutability)  
 [#53 String-based enums in string interpolation](https://github.com/johnsundell/swifttips#53-string-based-enums-in-string-interpolation)  
 [#52 Expressively comparing a value with a list of candidates](https://github.com/johnsundell/swifttips#52-expressively-comparing-a-value-with-a-list-of-candidates)  
@@ -61,6 +62,32 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#56 Calling instance methods as static functions](https://twitter.com/johnsundell/status/949317918730440704)
+
+😎 In Swift, you can call any instance method as a static function and it will return a closure representing that method. This is how running tests using SPM on Linux works.
+
+*More about this topic in my blog post ["First class functions in Swift"](https://www.swiftbysundell.com/posts/first-class-functions-in-swift).*
+
+```swift
+// This produces a '() -> Void' closure which is a reference to the
+// given view's 'removeFromSuperview' method.
+let closure = UIView.removeFromSuperview(view)
+
+// We can now call it just like we would any other closure, and it
+// will run 'view.removeFromSuperview()'
+closure()
+
+// This is how running tests using the Swift Package Manager on Linux
+// works, you return your test functions as closures:
+extension UserManagerTests {
+    static var allTests = [
+        ("testLoggingIn", testLoggingIn),
+        ("testLoggingOut", testLoggingOut),
+        ("testUserPermissions", testUserPermissions)
+    ]
+}
+```
 
 ## [#55 Dropping suffixes from method names to support multiple arguments](https://twitter.com/johnsundell/status/948513364015288320)
 
