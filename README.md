@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#55 Dropping suffixes from method names to support multiple arguments](https://github.com/johnsundell/swifttips#54-dropping-suffixes-from-method-names-to-support-multiple-arguments)  
 [#54 Constraining protocols to classes to ensure mutability](https://github.com/johnsundell/swifttips#54-constraining-protocols-to-classes-to-ensure-mutability)  
 [#53 String-based enums in string interpolation](https://github.com/johnsundell/swifttips#53-string-based-enums-in-string-interpolation)  
 [#52 Expressively comparing a value with a list of candidates](https://github.com/johnsundell/swifttips#52-expressively-comparing-a-value-with-a-list-of-candidates)  
@@ -60,6 +61,25 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#55 Dropping suffixes from method names to support multiple arguments](https://twitter.com/johnsundell/status/948513364015288320)
+
+👏 One really nice benefit of dropping suffixes from method names (and just using verbs, when possible) is that it becomes super easy to support both single and multiple arguments, and it works really well semantically.
+
+```swift
+extension UIView {
+    func add(_ subviews: UIView...) {
+        subviews.forEach(addSubview)
+    }
+}
+
+view.add(button)
+view.add(label)
+
+// By dropping the "Subview" suffix from the method name, both
+// single and multiple arguments work really well semantically.
+view.add(button, label)
+```
 
 ## [#54 Constraining protocols to classes to ensure mutability](https://twitter.com/johnsundell/status/948267767744122881)
 
