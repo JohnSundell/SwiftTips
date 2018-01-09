@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#54 Constraining protocols to classes to ensure mutability](https://github.com/johnsundell/swifttips#54-constraining-protocols-to-classes-to-ensure-mutability)  
 [#53 String-based enums in string interpolation](https://github.com/johnsundell/swifttips#53-string-based-enums-in-string-interpolation)  
 [#52 Expressively comparing a value with a list of candidates](https://github.com/johnsundell/swifttips#52-expressively-comparing-a-value-with-a-list-of-candidates)  
 [#51 UIView bounds and transforms](https://github.com/johnsundell/swifttips#51-uiview-bounds-and-transforms)  
@@ -59,6 +60,39 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#54 Constraining protocols to classes to ensure mutability](https://twitter.com/johnsundell/status/948267767744122881)
+
+👽 Using the `AnyObject` (or `class`) constraint on protocols is not only useful when defining delegates (or other weak references), but also when you always want instances to be mutable without copying.
+
+```swift
+// By constraining a protocol with 'AnyObject' it can only be adopted
+// by classes, which means all instances will always be mutable, and
+// that it's the original instance (not a copy) that will be mutated.
+protocol DataContainer: AnyObject {
+    var data: Data? { get set }
+}
+
+class UserSettingsManager {
+    private var settings: Settings
+    private let dataContainer: DataContainer
+
+    // Since DataContainer is a protocol, we an easily mock it in
+    // tests if we use dependency injection
+    init(settings: Settings, dataContainer: DataContainer) {
+        self.settings = settings
+        self.dataContainer = dataContainer
+    }
+
+    func saveSettings() throws {
+        let data = try settings.serialize()
+
+        // We can now assign properties on an instance of our protocol
+        // because the compiler knows it's always going to be a class
+        dataContainer.data = data
+    }
+}
+```
 
 ## [#53 String-based enums in string interpolation](https://twitter.com/johnsundell/status/945686980125437954)
 
