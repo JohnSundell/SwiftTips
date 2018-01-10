@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#57 Using first class functions when iterating over a dictionary](https://github.com/johnsundell/swifttips#57-using-first-class-functions-when-iterating-over-a-dictionary)  
 [#56 Calling instance methods as static functions](https://github.com/johnsundell/swifttips#56-calling-instance-methods-as-static-functions)  
 [#55 Dropping suffixes from method names to support multiple arguments](https://github.com/johnsundell/swifttips#55-dropping-suffixes-from-method-names-to-support-multiple-arguments)  
 [#54 Constraining protocols to classes to ensure mutability](https://github.com/johnsundell/swifttips#54-constraining-protocols-to-classes-to-ensure-mutability)  
@@ -62,6 +63,23 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#57 Using first class functions when iterating over a dictionary](https://twitter.com/johnsundell/status/950455451799445504)
+
+👨‍🍳 Combine first class functions in Swift with the fact that Dictionary elements are (Key, Value) tuples and you can build yourself some pretty awesome functional chains when iterating over a Dictionary.
+
+```swift
+func makeActor(at coordinate: Coordinate, for building: Building) -> Actor {
+    let actor = Actor()
+    actor.position = coordinate.point
+    actor.animation = building.animation
+    return actor
+}
+
+func render(_ buildings: [Coordinate : Building]) {
+    buildings.map(makeActor).forEach(add)
+}
+```
 
 ## [#56 Calling instance methods as static functions](https://twitter.com/johnsundell/status/949317918730440704)
 
