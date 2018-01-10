@@ -69,7 +69,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 🙌 Using the `where` clause when designing protocol-oriented APIs in Swift can let your implementations (or others' if it's open source) have a lot more freedom, especially when it comes to collections.
 
-*See ["Using generic type constraints in Swift 4"]https://www.swiftbysundell.com/posts/using-generic-type-constraints-in-swift-4) for more info.*
+*See ["Using generic type constraints in Swift 4"](https://www.swiftbysundell.com/posts/using-generic-type-constraints-in-swift-4) for more info.*
 
 ```swift
 public protocol PathFinderMap {
