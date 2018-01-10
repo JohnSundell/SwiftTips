@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#58 Using the where clause with associated types](https://github.com/johnsundell/swifttips#58-using-the-where-clause-with-associated-types)  
 [#57 Using first class functions when iterating over a dictionary](https://github.com/johnsundell/swifttips#57-using-first-class-functions-when-iterating-over-a-dictionary)  
 [#56 Calling instance methods as static functions](https://github.com/johnsundell/swifttips#56-calling-instance-methods-as-static-functions)  
 [#55 Dropping suffixes from method names to support multiple arguments](https://github.com/johnsundell/swifttips#55-dropping-suffixes-from-method-names-to-support-multiple-arguments)  
@@ -63,6 +64,28 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#58 Using the where clause with associated types](https://twitter.com/johnsundell/status/950810357492256768)
+
+🙌 Using the `where` clause when designing protocol-oriented APIs in Swift can let your implementations (or others' if it's open source) have a lot more freedom, especially when it comes to collections.
+
+*See ["Using generic type constraints in Swift 4"]https://www.swiftbysundell.com/posts/using-generic-type-constraints-in-swift-4) for more info.*
+
+```swift
+public protocol PathFinderMap {
+    associatedtype Node
+    // Using the 'where' clause for associated types, we can
+    // ensure that a type meets certain requirements (in this
+    // case that it's a sequence with Node elements).
+    associatedtype NodeSequence: Sequence where NodeSequence.Element == Node
+
+    // Instead of using a concrete type (like [Node]) here, we
+    // give implementors of this protocol more freedom while
+    // still meeting our requirements. For example, one
+    // implementation might use Set<Node>.
+    func neighbors(of node: Node) -> NodeSequence
+}
+```
 
 ## [#57 Using first class functions when iterating over a dictionary](https://twitter.com/johnsundell/status/950455451799445504)
 
