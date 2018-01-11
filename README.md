@@ -1297,9 +1297,16 @@ public class PathFinder<Object: PathFinderObject> {
     public typealias Map = Object.Map
     public typealias Node = Map.Node
     public typealias Path = PathFinderPath<Object>
-    
+
     public static func possiblePaths(for object: Object, at rootNode: Node, on map: Map) -> Path.Sequence {
         return .init(object: object, rootNode: rootNode, map: map)
+    }
+    
+    //Also reducing clousure parameters length with typealias
+    public typealias Result = (Object, Error?) -> Void
+    
+    public static func resultClosure(completion: Result) {
+        completion(Object(), nil)
     }
 }
 ```
