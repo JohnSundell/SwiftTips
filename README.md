@@ -1298,7 +1298,6 @@ public class PathFinder<Object: PathFinderObject> {
     public typealias Node = Map.Node
     public typealias Path = PathFinderPath<Object>
 
-    
     public static func possiblePaths(for object: Object, at rootNode: Node, on map: Map) -> Path.Sequence {
         return .init(object: object, rootNode: rootNode, map: map)
     }
