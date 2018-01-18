@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#59 Defining custom option sets](https://github.com/johnsundell/swifttips#59-defining-custom-option-sets)  
 [#58 Using the where clause with associated types](https://github.com/johnsundell/swifttips#58-using-the-where-clause-with-associated-types)  
 [#57 Using first class functions when iterating over a dictionary](https://github.com/johnsundell/swifttips#57-using-first-class-functions-when-iterating-over-a-dictionary)  
 [#56 Calling instance methods as static functions](https://github.com/johnsundell/swifttips#56-calling-instance-methods-as-static-functions)  
@@ -64,6 +65,42 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#59 Defining custom option sets](https://twitter.com/johnsundell/status/951830680522117120)
+
+🎛 The awesome thing about option sets in Swift is that they can automatically either be passed as a single member or as a set. Even cooler is that you can easily define your own option sets as well, perfect for options and other non-exclusive values.
+
+```swift
+// Option sets are awesome, because you can easily pass them
+// both using dot syntax and array literal syntax, like when
+// using the UIView animation API:
+UIView.animate(withDuration: 0.3,
+               delay: 0,
+               options: .allowUserInteraction,
+               animations: animations)
+
+UIView.animate(withDuration: 0.3,
+               delay: 0,
+               options: [.allowUserInteraction, .layoutSubviews],
+               animations: animations)
+
+// The cool thing is that you can easily define your own option
+// sets as well, by defining a struct that has an Int rawValue,
+// that will be used as a bit mask.
+extension Cache {
+    struct Options: OptionSet {
+        static let saveToDisk = Options(rawValue: 1)
+        static let clearOnMemoryWarning = Options(rawValue: 1 << 1)
+        static let clearDaily = Options(rawValue: 1 << 2)
+
+        let rawValue: Int
+    }
+}
+
+// We can now use Cache.Options just like UIViewAnimationOptions:
+Cache(options: .saveToDisk)
+Cache(options: [.saveToDisk, .clearDaily])
+```
 
 ## [#58 Using the where clause with associated types](https://twitter.com/johnsundell/status/950810357492256768)
 
