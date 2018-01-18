@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#60 Using zip](https://github.com/johnsundell/swifttips#60-using-zip)  
 [#59 Defining custom option sets](https://github.com/johnsundell/swifttips#59-defining-custom-option-sets)  
 [#58 Using the where clause with associated types](https://github.com/johnsundell/swifttips#58-using-the-where-clause-with-associated-types)  
 [#57 Using first class functions when iterating over a dictionary](https://github.com/johnsundell/swifttips#57-using-first-class-functions-when-iterating-over-a-dictionary)  
@@ -65,6 +66,19 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#60 Using zip](https://twitter.com/johnsundell/status/953302410209976320)
+
+🤐 Using the zip function in Swift you can easily combine two sequences. Super useful when using two sequences to do some work, since zip takes care of all the bounds-checking.
+
+```swift
+func render(titles: [String]) {
+    for (label, text) in zip(titleLabels, titles) {
+        print(text)
+        label.text = text
+    }
+}
+```
 
 ## [#59 Defining custom option sets](https://twitter.com/johnsundell/status/951830680522117120)
 
