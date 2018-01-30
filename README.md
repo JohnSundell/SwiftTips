@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#63 The difference between static and class properties](https://github.com/johnsundell/swifttips#63-the-difference-between-static-and-class-properties)  
 [#62 Creating extensions with static factory methods](https://github.com/johnsundell/swifttips#62-creating-extensions-with-static-factory-methods)  
 [#61 Child view controller auto-resizing](https://github.com/johnsundell/swifttips#61-child-view-controller-auto-resizing)  
 [#60 Using zip](https://github.com/johnsundell/swifttips#60-using-zip)  
@@ -68,6 +69,20 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#63 The difference between static and class properties](https://twitter.com/johnsundell/status/956277711294656512)
+
+✍️ Unlike `static` properties, `class` properties can be overridden by subclasses (however, they can't be stored, only computed).
+
+```swift
+class TableViewCell: UITableViewCell {
+    class var preferredHeight: CGFloat { return 60 }
+}
+
+class TallTableViewCell: TableViewCell {
+    override class var preferredHeight: CGFloat { return 100 }
+}
+```
 
 ## [#62 Creating extensions with static factory methods](https://twitter.com/johnsundell/status/955832453238751232)
 
