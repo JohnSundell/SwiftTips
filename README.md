@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#61 Child view controller auto-resizing](https://github.com/johnsundell/swifttips#61-child-view-controller-auto-resizing)  
 [#60 Using zip](https://github.com/johnsundell/swifttips#60-using-zip)  
 [#59 Defining custom option sets](https://github.com/johnsundell/swifttips#59-defining-custom-option-sets)  
 [#58 Using the where clause with associated types](https://github.com/johnsundell/swifttips#58-using-the-where-clause-with-associated-types)  
@@ -66,6 +67,26 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#61 Child view controller auto-resizing](https://twitter.com/johnsundell/status/953999892309045249)
+
+🧒 An awesome thing about child view controllers is that they're automatically resized to match their parent, making them a super nice solution for things like loading & error views.
+
+```swift
+class ListViewController: UIViewController {
+    func loadItems() {
+        let loadingViewController = LoadingViewController()
+        add(loadingViewController)
+
+        dataLoader.loadItems { [weak self] result in
+            loadingViewController.remove()
+            self?.handle(result)
+        }
+    }
+}
+```
+
+For more about child view controller (including the `add` and `remove` methods used above), check out *["Using child view controllers as plugins in Swift"](https://www.swiftbysundell.com/posts/using-child-view-controllers-as-plugins-in-swift)*.
 
 ## [#60 Using zip](https://twitter.com/johnsundell/status/953302410209976320)
 
