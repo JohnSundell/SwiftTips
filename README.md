@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#65 Using tuples for view state](https://github.com/johnsundell/swifttips#65-using-tuples-for-view-state)  
 [#64 Throwing tests and LocalizedError](https://github.com/johnsundell/swifttips#64-throwing-tests-and-localizederror)  
 [#63 The difference between static and class properties](https://github.com/johnsundell/swifttips#63-the-difference-between-static-and-class-properties)  
 [#62 Creating extensions with static factory methods](https://github.com/johnsundell/swifttips#62-creating-extensions-with-static-factory-methods)  
@@ -70,6 +71,33 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## #65 Using tuples for view state
+
+🎯 Using Swift tuples for view state can be a super nice way to group multiple properties together and render them reactively using the layout system.
+
+```swift
+class TextView: UIView {
+    var state: (title: String?, text: String?) {
+        // By telling UIKit that our view needs layout and binding our
+        // state in layoutSubviews, we can react to state changes without
+        // doing unnecessary layout work.
+        didSet { setNeedsLayout() }
+    }
+
+    private let titleLabel = UILabel()
+    private let textLabel = UILabel()
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        titleLabel.text = state.title
+        textLabel.text = state.text
+
+        ...
+    }
+}
+```
 
 ## [#64 Throwing tests and LocalizedError](https://twitter.com/johnsundell/status/956630510628999171)
 
