@@ -72,9 +72,11 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
 
-## #65 Using tuples for view state
+## [#65 Using tuples for view state](https://twitter.com/johnsundell/status/958374853555511296)
 
 🎯 Using Swift tuples for view state can be a super nice way to group multiple properties together and render them reactively using the layout system.
+
+By using a tuple we don't have to either introduce a new type or make our view model-aware.
 
 ```swift
 class TextView: UIView {
