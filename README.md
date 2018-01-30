@@ -38,7 +38,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#34 Organizing code using extensions](https://github.com/JohnSundell/SwiftTips#34-organizing-code-using-extensions)   
 [#33 Using map to transform an optional into a Result type](https://github.com/JohnSundell/SwiftTips#33-using-map-to-transform-an-optional-into-a-result-type)   
 [#32 Assigning to self in struct initializers](https://github.com/JohnSundell/SwiftTips#32-assigning-to-self-in-struct-initializers)   
-[#31 Recusively calling closures as inline functions](https://github.com/JohnSundell/SwiftTips#31-recusively-calling-closures-as-inline-functions)   
+[#31 Recursively calling closures as inline functions](https://github.com/JohnSundell/SwiftTips#31-recursively-calling-closures-as-inline-functions)   
 [#30 Passing self to required Objective-C dependencies](https://github.com/JohnSundell/SwiftTips#30-passing-self-to-required-objective-c-dependencies)   
 [#29 Making weak or lazy properties readonly](https://github.com/JohnSundell/SwiftTips#29-making-weak-or-lazy-properties-readonly)   
 [#28 Defining static URLs using string literals](https://github.com/JohnSundell/SwiftTips#28-defining-static-urls-using-string-literals)   
@@ -861,7 +861,7 @@ extension Bool: AnswerConvertible {
 }
 ```
 
-## [#31 Recusively calling closures as inline functions](https://twitter.com/johnsundell/status/894580870786539520)
+## [#31 Recursively calling closures as inline functions](https://twitter.com/johnsundell/status/894580870786539520)
 
 ☎️ Defining Swift closures as inline functions enables you to recursively call them, which is super useful in things like custom sequences.
 
