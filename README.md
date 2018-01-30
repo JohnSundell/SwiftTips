@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#62 Creating extensions with static factory methods](https://github.com/johnsundell/swifttips#62-creating-extensions-with-static-factory-methods)  
 [#61 Child view controller auto-resizing](https://github.com/johnsundell/swifttips#61-child-view-controller-auto-resizing)  
 [#60 Using zip](https://github.com/johnsundell/swifttips#60-using-zip)  
 [#59 Defining custom option sets](https://github.com/johnsundell/swifttips#59-defining-custom-option-sets)  
@@ -67,6 +68,38 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#62 Creating extensions with static factory methods](https://twitter.com/johnsundell/status/955832453238751232)
+
+👨‍🎨 Creating extensions with static factory methods can be a great alternative to subclassing in Swift, especially for things like setting up UIViews, CALayers or other kinds of styling.
+
+It also lets you remove a lot of styling & setup from your view controllers.
+
+```swift
+extension UILabel {
+    static func makeForTitle() -> UILabel {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 24)
+        label.textColor = .darkGray
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.75
+        return label
+    }
+
+    static func makeForText() -> UILabel {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 16)
+        label.textColor = .black
+        label.numberOfLines = 0
+        return label
+    }
+}
+
+class ArticleViewController: UIViewController {
+    lazy var titleLabel = UILabel.makeForTitle()
+    lazy var textLabel = UILabel.makeForText()
+}
+```
 
 ## [#61 Child view controller auto-resizing](https://twitter.com/johnsundell/status/953999892309045249)
 
