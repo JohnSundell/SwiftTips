@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#68 Combining lazily evaluated sequences with the builder pattern](https://github.com/johnsundell/swifttips#68-combining-lazily-evaluated-sequences-with-the-builder-pattern)  
 [#67 Faster & more stable UI tests](https://github.com/johnsundell/swifttips#67-faster--more-stable-ui-tests)  
 [#66 Accessing the clipboard from a Swift script](https://github.com/johnsundell/swifttips#66-accessing-the-clipboard-from-a-swift-script)  
 [#65 Using tuples for view state](https://github.com/johnsundell/swifttips#65-using-tuples-for-view-state)  
@@ -73,6 +74,40 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#68 Combining lazily evaluated sequences with the builder pattern](https://twitter.com/johnsundell/status/964515011765899266)
+
+😴 Combining lazily evaluated sequences with builder pattern-like properties can lead to some pretty sweet APIs for configurable sequences in Swift.
+
+Also useful for queries & other things you "build up" and then execute.
+
+```swift
+// Extension adding builder pattern-like properties that return
+// a new sequence value with the given configuration applied
+extension FileSequence {
+    var recursive: FileSequence {
+        var sequence = self
+        sequence.isRecursive = true
+        return sequence
+    }
+
+    var includingHidden: FileSequence {
+        var sequence = self
+        sequence.includeHidden = true
+        return sequence
+    }
+}
+
+// BEFORE
+
+let files = folder.makeFileSequence(recursive: true, includeHidden: true)
+
+// AFTER
+
+let files = folder.files.recursive.includingHidden
+```
+
+Want an intro to lazy sequences? Check out *["Swift sequences: The art of being lazy"](https://www.swiftbysundell.com/posts/swift-sequences-the-art-of-being-lazy)*.
 
 ## [#67 Faster & more stable UI tests](https://twitter.com/johnsundell/status/960578271439138816)
 
