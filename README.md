@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#69 Using "then" as an external parameter label for closures](https://github.com/johnsundell/swifttips#69-using-then-as-an-external-parameter-label-for-closures)  
 [#68 Combining lazily evaluated sequences with the builder pattern](https://github.com/johnsundell/swifttips#68-combining-lazily-evaluated-sequences-with-the-builder-pattern)  
 [#67 Faster & more stable UI tests](https://github.com/johnsundell/swifttips#67-faster--more-stable-ui-tests)  
 [#66 Accessing the clipboard from a Swift script](https://github.com/johnsundell/swifttips#66-accessing-the-clipboard-from-a-swift-script)  
@@ -74,6 +75,29 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#69 Using "then" as an external parameter label for closures](https://twitter.com/johnsundell/status/965880323614695424)
+
+⏱ I've started using "then" as an external parameter label for completion handlers. Makes the call site read really nicely (Because I do ❤️ conversational API design) regardless of whether trailing closure syntax is used or not.
+
+```swift
+protocol DataLoader {
+    // Adding type aliases to protocols can be a great way to
+    // reduce verbosity for parameter types.
+    typealias Handler = (Result<Data>) -> Void
+    associatedtype Endpoint
+
+    func loadData(from endpoint: Endpoint, then handler: @escaping Handler)
+}
+
+loader.loadData(from: .messages) { result in
+    ...
+}
+
+loader.loadData(from: .messages, then: { result in
+    ...
+})
+```
 
 ## [#68 Combining lazily evaluated sequences with the builder pattern](https://twitter.com/johnsundell/status/964515011765899266)
 
