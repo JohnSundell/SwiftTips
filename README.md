@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#66 Accessing the clipboard from a Swift script](https://github.com/johnsundell/swifttips#66-accessing-the-clipboard-from-a-swift-script)  
 [#65 Using tuples for view state](https://github.com/johnsundell/swifttips#65-using-tuples-for-view-state)  
 [#64 Throwing tests and LocalizedError](https://github.com/johnsundell/swifttips#64-throwing-tests-and-localizederror)  
 [#63 The difference between static and class properties](https://github.com/johnsundell/swifttips#63-the-difference-between-static-and-class-properties)  
@@ -71,6 +72,16 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#66 Accessing the clipboard from a Swift script](https://twitter.com/johnsundell/status/959875189961056256)
+
+📋 It's super easy to access the contents of the clipboard from a Swift script. A big benefit of Swift scripting is being able to use Cocoa's powerful APIs for Mac apps.
+
+```swift
+import Cocoa
+
+let clipboard = NSPasteboard.general.string(forType: .string)
+```
 
 ## [#65 Using tuples for view state](https://twitter.com/johnsundell/status/958374853555511296)
 
