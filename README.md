@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#67 Faster & more stable UI tests](https://github.com/johnsundell/swifttips#67-faster--more-stable-ui-tests)  
 [#66 Accessing the clipboard from a Swift script](https://github.com/johnsundell/swifttips#66-accessing-the-clipboard-from-a-swift-script)  
 [#65 Using tuples for view state](https://github.com/johnsundell/swifttips#65-using-tuples-for-view-state)  
 [#64 Throwing tests and LocalizedError](https://github.com/johnsundell/swifttips#64-throwing-tests-and-localizederror)  
@@ -72,6 +73,43 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#67 Faster & more stable UI tests](https://twitter.com/johnsundell/status/960578271439138816)
+
+My top 3 tips for faster & more stable UI tests:
+
+📱 Reset the app's state at the beginning of every test.
+
+🆔 Use accessibility identifiers instead of UI strings.
+
+⏱ Use expectations instead of waiting time.
+
+```swift
+func testOpeningArticle() {
+    // Launch the app with an argument that tells it to reset its state
+    let app = XCUIApplication()
+    app.launchArguments.append("--uitesting")
+    app.launch()
+    
+    // Check that the app is displaying an activity indicator
+    let activityIndicator = app.activityIndicator.element
+    XCTAssertTrue(activityIndicator.exists)
+    
+    // Wait for the loading indicator to disappear = content is ready
+    expectation(for: NSPredicate(format: "exists == 0"),
+                evaluatedWith: activityIndicator)
+                
+    // Use a generous timeout in case the network is slow
+    waitForExpectations(timeout: 10)
+    
+    // Tap the cell for the first article
+    app.tables.cells["Article.0"].tap()
+    
+    // Assert that a label with the accessibility identifier "Article.Title" exists
+    let label = app.staticTexts["Article.Title"]
+    XCTAssertTrue(label.exists)
+}
+```
 
 ## [#66 Accessing the clipboard from a Swift script](https://twitter.com/johnsundell/status/959875189961056256)
 
