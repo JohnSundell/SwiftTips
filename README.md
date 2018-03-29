@@ -84,7 +84,7 @@ When capturing values in mocks, using an array (instead of just a single value) 
 
 Perfect for protecting against "over-calling" something.
 
-```
+```swift
 class UserManagerTests: XCTestCase {
     func testObserversCalledWhenUserFirstLogsIn() {
         let manager = UserManager()
@@ -120,7 +120,7 @@ When writing tests, you don't always need to create mocks - you can create stubs
 
 Here's how to do that for some common tasks/object types in Swift:
 
-```
+```swift
 // Create errors using NSError (#function can be used to reference the name of the test)
 let error = NSError(domain: #function, code: 1, userInfo: nil)
 
