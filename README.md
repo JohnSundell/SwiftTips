@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#74 Generic type aliases](https://github.com/johnsundell/swifttips#74-generic-type-aliases)  
 [#73 Parsing command line arguments using UserDefaults](https://github.com/johnsundell/swifttips#73-parsing-command-line-arguments-using-userdefaults)  
 [#72 Using the & operator](https://github.com/johnsundell/swifttips#72-using-the--operator)  
 [#71 Capturing multiple values in mocks](https://github.com/johnsundell/swifttips#71-capturing-multiple-values-in-mocks)  
@@ -79,6 +80,22 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#74 Generic type aliases](https://twitter.com/johnsundell/status/979059265238388739)
+
+A cool thing about Swift type aliases is that they can be generic! Combine that with tuples and you can easily define simple generic types.
+
+```swift
+typealias Pair<T> = (T, T)
+
+extension Game {
+    func calculateScore(for players: Pair<Player>) -> Int {
+        ...
+    }
+}
+```
+
+*You can read more about using tuples as lightweight types [here](https://www.swiftbysundell.com/posts/using-tuples-as-lightweight-types-in-swift).*
 
 ## [#73 Parsing command line arguments using UserDefaults](https://twitter.com/johnsundell/status/973273054699773953)
 
