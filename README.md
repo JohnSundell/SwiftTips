@@ -116,7 +116,7 @@ class ViewControllerFactory {
 
 ## [#71 Capturing multiple values in mocks](https://twitter.com/johnsundell/status/971675443307917314)
 
-When capturing values in mocks, using an array (instead of just a single value) makes it easy to verify that only a certain number of values were passed.
+🤗 When capturing values in mocks, using an array (instead of just a single value) makes it easy to verify that only a certain number of values were passed.
 
 Perfect for protecting against "over-calling" something.
 
@@ -152,7 +152,7 @@ private extension UserManagerTests {
 
 ## [#70 Reducing the need for mocks](https://twitter.com/johnsundell/status/966652150247055360)
 
-When writing tests, you don't always need to create mocks - you can create stubs using real instances of things like errors, URLs & UserDefaults.
+👋 When writing tests, you don't always need to create mocks - you can create stubs using real instances of things like errors, URLs & UserDefaults.
 
 Here's how to do that for some common tasks/object types in Swift:
 
