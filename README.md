@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#71 Capturing multiple values in mocks](https://github.com/johnsundell/swifttips#71-capturing-multiple-values-in-mocks)  
 [#70 Reducing the need for mocks](https://github.com/johnsundell/swifttips#70-reducing-the-need-for-mocks)  
 [#69 Using "then" as an external parameter label for closures](https://github.com/johnsundell/swifttips#69-using-then-as-an-external-parameter-label-for-closures)  
 [#68 Combining lazily evaluated sequences with the builder pattern](https://github.com/johnsundell/swifttips#68-combining-lazily-evaluated-sequences-with-the-builder-pattern)  
@@ -76,6 +77,42 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#71 Capturing multiple values in mocks](https://twitter.com/johnsundell/status/971675443307917314)
+
+When capturing values in mocks, using an array (instead of just a single value) makes it easy to verify that only a certain number of values were passed.
+
+Perfect for protecting against "over-calling" something.
+
+```
+class UserManagerTests: XCTestCase {
+    func testObserversCalledWhenUserFirstLogsIn() {
+        let manager = UserManager()
+
+        let observer = ObserverMock()
+        manager.addObserver(observer)
+
+        // First login, observers should be notified
+        let user = User(id: 123, name: "John")
+        manager.userDidLogin(user)
+        XCTAssertEqual(observer.users, [user])
+
+        // If the same user logs in again, observers shouldn't be notified
+        manager.userDidLogin(user)
+        XCTAssertEqual(observer.users, [user])
+    }
+}
+
+private extension UserManagerTests {
+    class ObserverMock: UserManagerObserver {
+        private(set) var users = [User]()
+
+        func userDidChange(to user: User) {
+            users.append(user)
+        }
+    }
+}
+```
 
 ## [#70 Reducing the need for mocks](https://twitter.com/johnsundell/status/966652150247055360)
 
