@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#72 Using the & operator](https://github.com/johnsundell/swifttips#72-using-the--operator)  
 [#71 Capturing multiple values in mocks](https://github.com/johnsundell/swifttips#71-capturing-multiple-values-in-mocks)  
 [#70 Reducing the need for mocks](https://github.com/johnsundell/swifttips#70-reducing-the-need-for-mocks)  
 [#69 Using "then" as an external parameter label for closures](https://github.com/johnsundell/swifttips#69-using-then-as-an-external-parameter-label-for-closures)  
@@ -77,6 +78,28 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#72 Using the & operator](https://twitter.com/johnsundell/status/972134523612925952)
+
+👏 Swift's `&` operator is awesome! Not only can you use it to compose protocols, you can compose other types too! Very useful if you want to hide concrete types & implementation details.
+
+```swift
+protocol LoadableFromURL {
+    func load(from url: URL)
+}
+
+class ContentViewController: UIViewController, LoadableFromURL {
+    func load(from url: URL) {
+        ...
+    }
+}
+
+class ViewControllerFactory {
+    func makeContentViewController() -> UIViewController & LoadableFromURL {
+        return ContentViewController()
+    }
+}
+```
 
 ## [#71 Capturing multiple values in mocks](https://twitter.com/johnsundell/status/971675443307917314)
 
