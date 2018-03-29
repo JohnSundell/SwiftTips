@@ -83,7 +83,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## [#74 Generic type aliases](https://twitter.com/johnsundell/status/979059265238388739)
 
-A cool thing about Swift type aliases is that they can be generic! Combine that with tuples and you can easily define simple generic types.
+🕵️‍♀️ A cool thing about Swift type aliases is that they can be generic! Combine that with tuples and you can easily define simple generic types.
 
 ```swift
 typealias Pair<T> = (T, T)
