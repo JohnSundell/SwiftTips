@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#73 Parsing command line arguments using UserDefaults](https://github.com/johnsundell/swifttips#73-parsing-command-line-arguments-using-userdefaults)  
 [#72 Using the & operator](https://github.com/johnsundell/swifttips#72-using-the--operator)  
 [#71 Capturing multiple values in mocks](https://github.com/johnsundell/swifttips#71-capturing-multiple-values-in-mocks)  
 [#70 Reducing the need for mocks](https://github.com/johnsundell/swifttips#70-reducing-the-need-for-mocks)  
@@ -78,6 +79,18 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#73 Parsing command line arguments using UserDefaults](https://twitter.com/johnsundell/status/973273054699773953)
+
+☑️ A really cool "hidden" feature of UserDefaults is that it contains any arguments that were passed to the app at launch!
+
+Super useful both in Swift command line tools & scripts, but also to temporarily override a value when debugging iOS apps.
+
+```swift
+let defaults = UserDefaults.standard
+let query = defaults.string(forKey: "query")
+let resultCount = defaults.integer(forKey: "results")
+```
 
 ## [#72 Using the & operator](https://twitter.com/johnsundell/status/972134523612925952)
 
