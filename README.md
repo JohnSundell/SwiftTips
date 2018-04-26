@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#77 Nested generic types](https://github.com/johnsundell/swifttips#77-nested-generic-types)  
 [#76 Equatable & Hashable structures](https://github.com/johnsundell/swifttips#76-equatable-hashable-structures)  
 [#75 Conditional conformances](https://github.com/johnsundell/swifttips#75-conditional-conformances)  
 [#74 Generic type aliases](https://github.com/johnsundell/swifttips#74-generic-type-aliases)  
@@ -82,6 +83,25 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#77 Nested generic types](https://twitter.com/johnsundell/status/983798689994035200)
+
+🐝 Types that are nested in generics automatically inherit their parent's generic types - which is super useful when defining accessory types (for things like states or outcomes).
+
+```swift
+struct Task<Input, Output> {
+    typealias Closure = (Input) throws -> Output
+
+    let closure: Closure
+}
+
+extension Task {
+    enum Result {
+        case success(Output)
+        case failure(Error)
+    }
+}
+```
 
 ## [#76 Equatable & Hashable structures](https://twitter.com/johnsundell/status/981449931134259202)
 
