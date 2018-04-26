@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#78 Usages of throwing functions](https://github.com/johnsundell/swifttips#78-usages-of-throwing-functions)  
 [#77 Nested generic types](https://github.com/johnsundell/swifttips#77-nested-generic-types)  
 [#76 Equatable & Hashable structures](https://github.com/johnsundell/swifttips#76-equatable-hashable-structures)  
 [#75 Conditional conformances](https://github.com/johnsundell/swifttips#75-conditional-conformances)  
@@ -83,6 +84,29 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#78 Usages of throwing functions](https://twitter.com/johnsundell/status/988713137854668800)
+
+🏈 A big benefit of using throwing functions for synchronous Swift APIs is that the caller can decide whether they want to treat the return value as optional (`try`) or required (`try?`).
+
+```swift
+func loadFile(named name: String) throws -> File {
+    guard let url = urlForFile(named: name) else {
+        throw File.Error.missing
+    }
+
+    do {
+        let data = try Data(contentsOf: url)
+        return File(url: url, data: data)
+    } catch {
+        throw File.Error.invalidData(error)
+    }
+}
+
+let requiredFile = try loadFile(named: "AppConfig.json")
+
+let optionalFile = try? loadFile(named: "UserSettings.json")
+```
 
 ## [#77 Nested generic types](https://twitter.com/johnsundell/status/983798689994035200)
 
