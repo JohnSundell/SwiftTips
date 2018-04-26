@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#75 Conditional conformances](https://github.com/johnsundell/swifttips#75-conditional-conformances)  
 [#74 Generic type aliases](https://github.com/johnsundell/swifttips#74-generic-type-aliases)  
 [#73 Parsing command line arguments using UserDefaults](https://github.com/johnsundell/swifttips#73-parsing-command-line-arguments-using-userdefaults)  
 [#72 Using the & operator](https://github.com/johnsundell/swifttips#72-using-the--operator)  
@@ -80,6 +81,28 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#75 Conditional conformances](https://twitter.com/johnsundell/status/979682447544737792)
+
+🎉 Swift 4.1 is here! One of the key features it brings is conditional conformances, which lets you have a type only conform to a protocol under certain constraints.
+
+```swift
+protocol UnboxTransformable {
+    associatedtype RawValue
+
+    static func transform(_ value: RawValue) throws -> Self?
+}
+
+extension Array: UnboxTransformable where Element: UnboxTransformable {
+    typealias RawValue = [Element.RawValue]
+
+    static func transform(_ value: RawValue) throws -> [Element]? {
+        return try value.compactMap(Element.transform)
+    }
+}
+```
+
+*I also have [an article with lots of more info on conditional conformances here](https://www.swiftbysundell.com/posts/conditional-conformances-in-swift). Paul Hudson also has a great overview of [all Swift 4.1 features here](https://www.hackingwithswift.com/articles/50/whats-new-in-swift-4-1).*
 
 ## [#74 Generic type aliases](https://twitter.com/johnsundell/status/979059265238388739)
 
