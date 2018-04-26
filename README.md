@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#79 Struct convenience initializers](https://github.com/johnsundell/swifttips#79-struct-convenience-initializers)  
 [#78 Usages of throwing functions](https://github.com/johnsundell/swifttips#78-usages-of-throwing-functions)  
 [#77 Nested generic types](https://github.com/johnsundell/swifttips#77-nested-generic-types)  
 [#76 Equatable & Hashable structures](https://github.com/johnsundell/swifttips#76-equatable-hashable-structures)  
@@ -84,6 +85,36 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#79 Struct convenience initializers](https://twitter.com/johnsundell/status/989470243008458752)
+
+❤️ I love to structure my code using extensions in Swift. One big benefit of doing so when it comes to struct initializers, is that defining a convenience initializer doesn't remove the default one the compiler generates - best of both worlds!
+
+```swift
+struct Article {
+    let date: Date
+    var title: String
+    var text: String
+    var comments: [Comment]
+}
+
+extension Article {
+    init(title: String, text: String) {
+        self.init(date: Date(), title: title, text: text, comments: [])
+    }
+}
+
+let articleA = Article(title: "Best Cupcake Recipe", text: "...")
+
+let articleB = Article(
+    date: Date(),
+    title: "Best Cupcake Recipe",
+    text: "...",
+    comments: [
+        Comment(user: currentUser, text: "Yep, can confirm!")
+    ]
+)
+```
 
 ## [#78 Usages of throwing functions](https://twitter.com/johnsundell/status/988713137854668800)
 
