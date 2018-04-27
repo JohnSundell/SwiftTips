@@ -118,7 +118,7 @@ let articleB = Article(
 
 ## [#78 Usages of throwing functions](https://twitter.com/johnsundell/status/988713137854668800)
 
-🏈 A big benefit of using throwing functions for synchronous Swift APIs is that the caller can decide whether they want to treat the return value as optional (`try`) or required (`try?`).
+🏈 A big benefit of using throwing functions for synchronous Swift APIs is that the caller can decide whether they want to treat the return value as optional (`try?`) or required (`try`).
 
 ```swift
 func loadFile(named name: String) throws -> File {
