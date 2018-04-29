@@ -1896,9 +1896,10 @@ extension Dictionary {
 ## [#1 Namespacing with nested types](https://twitter.com/johnsundell/status/821828733107634176)
 
 🚀 I’ve started to become a really big fan of nested types in Swift. Love the additional namespacing it gives you!
+By using an `enum` with no cases rather than a `struct`, you prevent being able to construct the outer type that serves as the namespace. For example, using `struct Map` below allows you to write `let map = Map()`, which doesn't make any sense if `Map` is used only as a namespace.
 
 ```swift
-public struct Map {
+public enum Map {
     public struct Model {
         public let size: Size
         public let theme: Theme
