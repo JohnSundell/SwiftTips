@@ -445,11 +445,15 @@ class TextView: UIView {
     private let textLabel = UILabel()
 
     override func layoutSubviews() {
-        super.layoutSubviews()
-
+        // Changing the labels changes their intrinsic size, do so before you call super's layoutSubviews()
+        
         titleLabel.text = state.title
         textLabel.text = state.text
 
+        // Perform default layout
+        super.layoutSubviews()
+
+        // Do your custom layout steps (if any)
         ...
     }
 }
