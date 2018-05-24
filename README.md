@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#80 Assigning optional tuple members to variables](https://github.com/johnsundell/swifttips#89-assigning-optional-tuple-members-to-variables)  
 [#79 Struct convenience initializers](https://github.com/johnsundell/swifttips#79-struct-convenience-initializers)  
 [#78 Usages of throwing functions](https://github.com/johnsundell/swifttips#78-usages-of-throwing-functions)  
 [#77 Nested generic types](https://github.com/johnsundell/swifttips#77-nested-generic-types)  
@@ -85,6 +86,31 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#80 Assigning optional tuple members to variables](https://twitter.com/johnsundell/status/991047171087650816)
+
+🙌 A really cool thing about using tuples to model the internal state of a Swift type, is that you can unwrap an optional tuple's members directly into local variables.
+
+Very useful in order to group multiple optional values together for easy unwrapping & handling.
+
+```swift
+class ImageTransformer {
+    private var queue = [(image: UIImage, transform: Transform)]()
+
+    private func processNext() {
+        // When unwrapping an optional tuple, you can assign the members
+        // directly to local variables.
+        guard let (image, transform) = queue.first else {
+            return
+        }
+
+        let context = Context()
+        context.draw(image)
+        context.apply(transform)
+        ...
+    }
+}
+```
 
 ## [#79 Struct convenience initializers](https://twitter.com/johnsundell/status/989470243008458752)
 
