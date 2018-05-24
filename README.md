@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#82 Defaults for associated types](https://github.com/johnsundell/swifttips#82-defaults-for-associated-types)  
 [#81 Creating a dedicated identifier type](https://github.com/johnsundell/swifttips#81-creating-a-dedicated-identifier-type)  
 [#80 Assigning optional tuple members to variables](https://github.com/johnsundell/swifttips#80-assigning-optional-tuple-members-to-variables)  
 [#79 Struct convenience initializers](https://github.com/johnsundell/swifttips#79-struct-convenience-initializers)  
@@ -88,9 +89,33 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
 
+## [#82 Defaults for associated types](https://twitter.com/johnsundell/status/997183435759382529)
+
+🤝 Associated types can have defaults in Swift - which is super useful for types that are not easily inferred (for example when they're not used for a specific instance method or property).
+
+```swift
+protocol Identifiable {
+    associatedtype RawIdentifier: Codable = String
+
+    var id: Identifier<Self> { get }
+}
+
+struct User: Identifiable {
+    let id: Identifier<User>
+    let name: String
+}
+
+struct Group: Identifiable {
+    typealias RawIdentifier = Int
+
+    let id: Identifier<Group>
+    let name: String
+}
+```
+
 ## [#81 Creating a dedicated identifier type](https://twitter.com/johnsundell/status/993570941887242240)
 
-If you want to avoid using plain strings as identifiers (which can increase both type safety & readability), it's really easy to create a custom Identifier type that feels just like a native Swift type, thanks to protocols!
+🆔 If you want to avoid using plain strings as identifiers (which can increase both type safety & readability), it's really easy to create a custom Identifier type that feels just like a native Swift type, thanks to protocols!
 
 *More on this topic in ["Type-safe identifiers in Swift"](https://www.swiftbysundell.com/posts/type-safe-identifiers-in-swift).*
 
