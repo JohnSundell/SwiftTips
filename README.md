@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#83: Auto-Equatable enums with associated values](https://github.com/johnsundell/swifttips#83-auto-equatable-enums-with-associated-values)  
 [#82 Defaults for associated types](https://github.com/johnsundell/swifttips#82-defaults-for-associated-types)  
 [#81 Creating a dedicated identifier type](https://github.com/johnsundell/swifttips#81-creating-a-dedicated-identifier-type)  
 [#80 Assigning optional tuple members to variables](https://github.com/johnsundell/swifttips#80-assigning-optional-tuple-members-to-variables)  
@@ -88,6 +89,35 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#83: Auto-Equatable enums with associated values](https://twitter.com/johnsundell/status/999742519205392389)
+
+✅ That the compiler now automatically synthesizes Equatable conformances is such a huge upgrade for Swift! And the cool thing is that it works for all kinds of types - even for enums with associated values! Especially useful when using enums for verification in unit tests.
+
+```swift
+struct Article: Equatable {
+    let title: String
+    let text: String
+}
+
+struct User: Equatable {
+    let name: String
+    let age: Int
+}
+
+extension Navigator {
+    enum Destination: Equatable {
+        case profile(User)
+        case article(Article)
+    }
+}
+
+func testNavigatingToArticle() {
+    let article = Article(title: "Title", text: "Text")
+    controller.select(article)
+    XCTAssertEqual(navigator.destinations, [.article(article)])
+}
+```
 
 ## [#82 Defaults for associated types](https://twitter.com/johnsundell/status/997183435759382529)
 
