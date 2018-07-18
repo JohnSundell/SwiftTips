@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#85 Using shared UserDefaults suites](https://github.com/johnsundell/swifttips#85-using-shared-userdefaults-suites)  
 [#84 Custom UIView backing layers](https://github.com/johnsundell/swifttips#84-custom-uiview-backing-layers)  
 [#83 Auto-Equatable enums with associated values](https://github.com/johnsundell/swifttips#83-auto-equatable-enums-with-associated-values)  
 [#82 Defaults for associated types](https://github.com/johnsundell/swifttips#82-defaults-for-associated-types)  
@@ -90,6 +91,27 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#85 Using shared UserDefaults suites](https://twitter.com/johnsundell/status/1001740057634582528)
+
+📦 `UserDefaults` is a lot more powerful than what it first might seem like. Not only can it store more complex values (like dates & dictionaries) and parse command line arguments - it also enables easy sharing of settings & lightweight data between apps in the same App Group.
+
+```swift
+let sharedDefaults = UserDefaults(suiteName: "my-app-group")!
+let useDarkMode = sharedDefaults.bool(forKey: "dark-mode")
+
+// This value is put into the shared suite.
+sharedDefaults.set(true, forKey: "dark-mode")
+
+// If you want to treat the shared settings as read-only (and add
+// local overrides on top of them), you can simply add the shared
+// suite to the standard UserDefaults.
+let combinedDefaults = UserDefaults.standard
+combinedDefaults.addSuite(named: "my-app-group")
+
+// This value is a local override, not added to the shared suite.
+combinedDefaults.set(true, forKey: "app-specific-override")
+```
 
 ## [#84 Custom UIView backing layers](https://twitter.com/johnsundell/status/1000099872580816897)
 
