@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#86 Useful Codable extensions](https://github.com/johnsundell/swifttips#86-useful-codable-extensions)  
 [#85 Using shared UserDefaults suites](https://github.com/johnsundell/swifttips#85-using-shared-userdefaults-suites)  
 [#84 Custom UIView backing layers](https://github.com/johnsundell/swifttips#84-custom-uiview-backing-layers)  
 [#83 Auto-Equatable enums with associated values](https://github.com/johnsundell/swifttips#83-auto-equatable-enums-with-associated-values)  
@@ -91,6 +92,35 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#86 Useful Codable extensions](https://twitter.com/johnsundell/status/1004290487799468032)
+
+👨‍🔧 Here's two extensions that I always add to the `Encodable` & `Decodable` protocols, which for me really make the Codable API nicer to use. By using type inference for decoding, a lot of boilerplate can be removed when the compiler is already able to infer the resulting type.
+
+```swift
+extension Encodable {
+    func encoded() throws -> Data {
+        return try JSONEncoder().encode(self)
+    }
+}
+
+extension Data {
+    func decoded<T: Decodable>() throws -> T {
+        return try JSONDecoder().decode(T.self, from: self)
+    }
+}
+
+let data = try user.encoded()
+
+// By using a generic type in the decoded() method, the
+// compiler can often infer the type we want to decode
+// from the current context.
+try userDidLogin(data.decoded())
+
+// And if not, we can always supply the type, still making
+// the call site read very nicely.
+let otherUser = try data.decoded() as User
+```
 
 ## [#85 Using shared UserDefaults suites](https://twitter.com/johnsundell/status/1001740057634582528)
 
