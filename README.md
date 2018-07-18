@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#88 Lightweight data hierarchies using tuples](https://github.com/johnsundell/swifttips#88-lightweight-data-hierarchies-using-tuples)  
 [#87 The rule of threes](https://github.com/johnsundell/swifttips#87-the-rule-of-threes)  
 [#86 Useful Codable extensions](https://github.com/johnsundell/swifttips#86-useful-codable-extensions)  
 [#85 Using shared UserDefaults suites](https://github.com/johnsundell/swifttips#85-using-shared-userdefaults-suites)  
@@ -93,6 +94,28 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#88 Lightweight data hierarchies using tuples](https://twitter.com/johnsundell/status/1018945940252774400)
+
+💾 Here I'm using tuples to create a lightweight hierarchy for my data, giving me a nice structure without having to introduce any additional types.
+
+```swift
+struct CodeSegment {
+    var tokens: (
+        previous: String?,
+        current: String
+    )
+
+    var delimiters: (
+        previous: Character?
+        next: Character?
+    )
+}
+
+handle(segment.tokens.current)
+```
+
+*You can read more about tuples in ["Using tuples as lightweight types in Swift"](https://www.swiftbysundell.com/posts/using-tuples-as-lightweight-types-in-swift)*
 
 ## [#87 The rule of threes](https://twitter.com/johnsundell/status/1012314573112791042)
 
