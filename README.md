@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#84 Custom UIView backing layers](https://github.com/johnsundell/swifttips#84-custom-uiview-backing-layers)  
 [#83 Auto-Equatable enums with associated values](https://github.com/johnsundell/swifttips#83-auto-equatable-enums-with-associated-values)  
 [#82 Defaults for associated types](https://github.com/johnsundell/swifttips#82-defaults-for-associated-types)  
 [#81 Creating a dedicated identifier type](https://github.com/johnsundell/swifttips#81-creating-a-dedicated-identifier-type)  
@@ -89,6 +90,25 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#84 Custom UIView backing layers](https://twitter.com/johnsundell/status/1000099872580816897)
+
+🎨 By overriding `layerClass` you can tell UIKit what `CALayer` class to use for a `UIView`'s backing layer. That way you can reduce the amount of layers, and don't have to do any manual layout.
+
+```swift
+final class GradientView: UIView {
+    override class var layerClass: AnyClass { return CAGradientLayer.self }
+
+    var colors: (start: UIColor, end: UIColor)? {
+        didSet { updateLayer() }
+    }
+
+    private func updateLayer() {
+        let layer = self.layer as! CAGradientLayer
+        layer.colors = colors.map { [$0.start.cgColor, $0.end.cgColor] }
+    }
+}
+```
 
 ## [#83 Auto-Equatable enums with associated values](https://twitter.com/johnsundell/status/999742519205392389)
 
