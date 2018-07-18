@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#89 Using feature flags instead of feature branches](https://github.com/johnsundell/swifttips#89-using-feature-flags-instead-of-feature-branches)  
 [#88 Lightweight data hierarchies using tuples](https://github.com/johnsundell/swifttips#88-lightweight-data-hierarchies-using-tuples)  
 [#87 The rule of threes](https://github.com/johnsundell/swifttips#87-the-rule-of-threes)  
 [#86 Useful Codable extensions](https://github.com/johnsundell/swifttips#86-useful-codable-extensions)  
@@ -94,6 +95,33 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#89 Using feature flags instead of feature branches](https://twitter.com/johnsundell/status/1019574434338877440)
+
+🚢 Instead of using feature branches, I merge almost all of my code directly into master - and then I use feature flags to conditionally enable features when they're ready. That way I can avoid merge conflicts and keep shipping!
+
+```swift
+extension ListViewController {
+    func addSearchIfNeeded() {
+        // Rather than having to keep maintaining a separate
+        // feature branch for a new feature, we can use a flag
+        // to conditionally turn it on.
+        guard FeatureFlags.searchEnabled else {
+            return
+        }
+
+        let resultsVC = SearchResultsViewController()
+        let searchVC = UISearchController(
+            searchResultsController: resultsVC
+        )
+
+        searchVC.searchResultsUpdater = resultsVC
+        navigationItem.searchController = searchVC
+    }
+}
+```
+
+*You can read more about feature flags in ["Feature flags in Swift"](https://www.swiftbysundell.com/posts/feature-flags-in-swift).*
 
 ## [#88 Lightweight data hierarchies using tuples](https://twitter.com/johnsundell/status/1018945940252774400)
 
