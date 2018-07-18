@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#87 The rule of threes](https://github.com/johnsundell/swifttips#87-the-rule-of-threes)  
 [#86 Useful Codable extensions](https://github.com/johnsundell/swifttips#86-useful-codable-extensions)  
 [#85 Using shared UserDefaults suites](https://github.com/johnsundell/swifttips#85-using-shared-userdefaults-suites)  
 [#84 Custom UIView backing layers](https://github.com/johnsundell/swifttips#84-custom-uiview-backing-layers)  
@@ -92,6 +93,40 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#87 The rule of threes](https://twitter.com/johnsundell/status/1012314573112791042)
+
+3️⃣ Whenever I have 3 properties or local variables that share the same prefix, I usually try to extract them into their own method or type. That way I can avoid massive types & methods, and also increase readability, without falling into a "premature optimization" trap.
+
+**Before**
+
+```swift
+public func generate() throws {
+    let contentFolder = try folder.subfolder(named: "content")
+
+    let articleFolder = try contentFolder.subfolder(named: "posts")
+    let articleProcessor = ContentProcessor(folder: articleFolder)
+    let articles = try articleProcessor.process()
+
+    ...
+}
+```
+
+**After**
+
+```swift
+public func generate() throws {
+    let contentFolder = try folder.subfolder(named: "content")
+    let articles = try processArticles(in: contentFolder)
+    ...
+}
+
+private func processArticles(in folder: Folder) throws -> [ContentItem] {
+    let folder = try folder.subfolder(named: "posts")
+    let processor = ContentProcessor(folder: folder)
+    return try processor.process()
+}
+```
 
 ## [#86 Useful Codable extensions](https://twitter.com/johnsundell/status/1004290487799468032)
 
