@@ -6,6 +6,8 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#92 Multiline string literals](https://github.com/johnsundell/swifttips#92-multiline-string-literals)  
+[#91 Reducing sequences](https://github.com/johnsundell/swifttips#91-reducing-sequences)  
 [#90 Avoiding manual Codable implementations](https://github.com/johnsundell/swifttips#90-avoiding-manual-codable-implementations)  
 [#89 Using feature flags instead of feature branches](https://github.com/johnsundell/swifttips#89-using-feature-flags-instead-of-feature-branches)  
 [#88 Lightweight data hierarchies using tuples](https://github.com/johnsundell/swifttips#88-lightweight-data-hierarchies-using-tuples)  
@@ -96,6 +98,38 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#92 Multiline string literals](https://twitter.com/johnsundell/status/1034037108921516032)
+
+🅰 One really nice benefit of Swift multiline string literals - even for single lines of text - is that they don't require quotes to be escaped. Perfect when working with things like HTML, or creating a custom description for an object.
+
+```swift
+let html = highlighter.highlight("Array<String>")
+
+XCTAssertEqual(html, """
+<span class="type">Array</span>&lt;<span class="type">String</span>&gt;
+""")
+```
+
+## [#91 Reducing sequences](https://twitter.com/johnsundell/status/1030458678875439109)
+
+💎 While it's very common in functional programming, the `reduce` function might be a bit of a hidden gem in Swift. It provides a super useful way to transform a sequence into a single value.
+
+```swift
+extension Sequence where Element: Equatable {
+    func numberOfOccurrences(of target: Element) -> Int {
+        return reduce(0) { result, element in
+            guard element == target else {
+                return result
+            }
+
+            return result + 1
+        }
+    }
+}
+```
+
+You can read more about transforming collections in *["Transforming collections in Swift"](https://www.swiftbysundell.com/posts/transforming-collections-in-swift)*.
 
 ## [#90 Avoiding manual Codable implementations](https://twitter.com/johnsundell/status/1030064777941471232)
 
