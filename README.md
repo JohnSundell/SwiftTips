@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#94 Testing code that uses static APIs](https://github.com/johnsundell/swifttips#94-testing-code-that-uses-static-apis)  
 [#93 Matching multiple enum cases with associated values](https://github.com/johnsundell/swifttips#93-matching-multiple-enum-cases-with-associated-values)  
 [#92 Multiline string literals](https://github.com/johnsundell/swifttips#92-multiline-string-literals)  
 [#91 Reducing sequences](https://github.com/johnsundell/swifttips#91-reducing-sequences)  
@@ -99,6 +100,48 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#94 Testing code that uses static APIs](https://twitter.com/johnsundell/status/1044900209841590272)
+
+👩‍🔬 Testing code that uses static APIs can be really tricky, but there's a way that it can often be done - using Swift's first class function capabilities!
+
+Instead of accessing that static API directly, we can inject the function we want to use, which enables us to mock it!
+
+```swift
+// BEFORE
+
+class FriendsLoader {
+    func loadFriends(then handler: @escaping (Result<[Friend]>) -> Void) {
+        Networking.loadData(from: .friends) { result in
+            ...
+        }
+    }
+}
+
+// AFTER
+
+class FriendsLoader {
+    typealias Handler<T> = (Result<T>) -> Void
+    typealias DataLoadingFunction = (Endpoint, @escaping Handler<Data>) -> Void
+
+    func loadFriends(using dataLoading: DataLoadingFunction = Networking.loadData,
+                     then handler: @escaping Handler<[Friend]>) {
+        dataLoading(.friends) { result in
+            ...
+        }
+    }
+}
+
+// MOCKING IN TESTS
+
+let dataLoading: FriendsLoader.DataLoadingFunction = { _, handler in
+    handler(.success(mockData))
+}
+
+friendsLoader.loadFriends(using: dataLoading) { result in
+    ...
+}
+```
 
 ## [#93 Matching multiple enum cases with associated values](https://twitter.com/johnsundell/status/1039882780174413824)
 
