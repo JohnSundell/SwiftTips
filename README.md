@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#90 Avoiding manual Codable implementations](https://github.com/johnsundell/swifttips#90-avoiding-manual-codable-implementations)  
 [#89 Using feature flags instead of feature branches](https://github.com/johnsundell/swifttips#89-using-feature-flags-instead-of-feature-branches)  
 [#88 Lightweight data hierarchies using tuples](https://github.com/johnsundell/swifttips#88-lightweight-data-hierarchies-using-tuples)  
 [#87 The rule of threes](https://github.com/johnsundell/swifttips#87-the-rule-of-threes)  
@@ -95,6 +96,35 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#90 Avoiding manual Codable implementations](https://twitter.com/johnsundell/status/1030064777941471232)
+
+📦 When I use Codable in Swift, I want to avoid manual implementations as much as possible, even when there's a mismatch between my code structure and the JSON I'm decoding.
+
+One way that can often be achieved is to use private data containers combined with computed properties.
+
+```swift
+struct User: Codable {
+    let name: String
+    let age: Int
+
+    var homeTown: String { return originPlace.name }
+
+    private let originPlace: Place
+}
+
+private extension User {
+    struct Place: Codable {
+        let name: String
+    }
+}
+
+extension User {
+    struct Container: Codable {
+        let user: User
+    }
+}
+```
 
 ## [#89 Using feature flags instead of feature branches](https://twitter.com/johnsundell/status/1019574434338877440)
 
