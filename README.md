@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#93 Matching multiple enum cases with associated values](https://github.com/johnsundell/swifttips#93-matching-multiple-enum-cases-with-associated-values)  
 [#92 Multiline string literals](https://github.com/johnsundell/swifttips#92-multiline-string-literals)  
 [#91 Reducing sequences](https://github.com/johnsundell/swifttips#91-reducing-sequences)  
 [#90 Avoiding manual Codable implementations](https://github.com/johnsundell/swifttips#90-avoiding-manual-codable-implementations)  
@@ -98,6 +99,30 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#93 Matching multiple enum cases with associated values](https://twitter.com/johnsundell/status/1039882780174413824)
+
+🐾 Swift's pattern matching capabilities are so powerful! Two enum cases with associated values can even be matched and handled by the same switch case - which is super useful when handling state changes with similar data.
+
+```swift
+enum DownloadState {
+    case inProgress(progress: Double)
+    case paused(progress: Double)
+    case cancelled
+    case finished(Data)
+}
+
+func downloadStateDidChange(to state: DownloadState) {
+    switch state {
+    case .inProgress(let progress), .paused(let progress):
+        updateProgressView(with: progress)
+    case .cancelled:
+        showCancelledMessage()
+    case .finished(let data):
+        process(data)
+    }
+}
+```
 
 ## [#92 Multiline string literals](https://twitter.com/johnsundell/status/1034037108921516032)
 
