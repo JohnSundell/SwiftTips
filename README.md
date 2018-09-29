@@ -1919,6 +1919,21 @@ To stop the playground from executing, simply call `PlaygroundPage.current.finis
 
 💦 Avoid memory leaks when accidentially refering to `self` in closures by overriding it locally with a weak reference:
 
+**Swift >= 4.2**
+
+```swift
+dataLoader.loadData(from: url) { [weak self] result in
+    guard let self = self else { return }
+
+    self.cache(result)
+    
+    ...
+```
+
+Accepted [proposal](https://github.com/apple/swift-evolution/blob/master/proposals/0079-upgrade-self-from-weak-to-strong.md) now implemented in Swift 4.2
+
+**Swift < 4.2**
+
 ```swift
 dataLoader.loadData(from: url) { [weak self] result in
     guard let `self` = self else {
