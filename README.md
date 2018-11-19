@@ -6,6 +6,8 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#98 Using a custom exception handler](https://github.com/johnsundell/swifttips#98-using-a-custom-exception-handler)  
+[#97 Using type aliases to give semantic meaning to primitives](https://github.com/johnsundell/swifttips#97-using-type-aliases-to-give-semantic-meaning-to-primitives)  
 [#96 Specializing protocols using constraints](https://github.com/johnsundell/swifttips#96-specializing-protocols-using-constraints)  
 [#95 Unwrapping an optional or throwing an error](https://github.com/johnsundell/swifttips#95-unwrapping-an-optional-or-throwing-an-error)  
 [#94 Testing code that uses static APIs](https://github.com/johnsundell/swifttips#94-testing-code-that-uses-static-apis)  
@@ -102,6 +104,42 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#98 Using a custom exception handler](https://twitter.com/johnsundell/status/1052282169807306755)
+
+💥 It's cool that you can easily assign a closure as a custom `NSException` handler. This is super useful when building things in Playgrounds - since you can't use breakpoints - so instead of just `signal SIGABRT`, you'll get the full exception description if something goes wrong.
+
+```swift
+NSSetUncaughtExceptionHandler { exception in
+    print(exception)
+}
+```
+
+## [#97 Using type aliases to give semantic meaning to primitives](https://twitter.com/johnsundell/status/1051249295532417024)
+
+❤️ I love that in Swift, we can use the type system to make our code so much more self-documenting - one way of doing so is to use type aliases to give the primitive types that we use a more semantic meaning.
+
+```swift
+extension List.Item {
+    // Using type aliases, we can give semantic meaning to the
+    // primitive types that we use, without having to introduce
+    // wrapper types.
+    typealias Index = Int
+}
+
+extension List {
+    enum Mutation {
+        // Our enum cases now become a lot more self-documenting,
+        // without having to add additional parameter labels to
+        // explain them.
+        case add(Item, Item.Index)
+        case update(Item, Item.Index)
+        case remove(Item.Index)
+    }
+}
+```
+
+*For more on self-documenting code, check out ["Writing self-documenting Swift code"](https://www.swiftbysundell.com/posts/writing-self-documenting-swift-code).*
 
 ## [#96 Specializing protocols using constraints](https://twitter.com/johnsundell/status/1049428419040215040)
 
