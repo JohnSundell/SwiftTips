@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#95 Unwrapping an optional or throwing an error](https://github.com/johnsundell/swifttips#95-unwrapping-an-optional-or-throwing-an-error)  
 [#94 Testing code that uses static APIs](https://github.com/johnsundell/swifttips#94-testing-code-that-uses-static-apis)  
 [#93 Matching multiple enum cases with associated values](https://github.com/johnsundell/swifttips#93-matching-multiple-enum-cases-with-associated-values)  
 [#92 Multiline string literals](https://github.com/johnsundell/swifttips#92-multiline-string-literals)  
@@ -100,6 +101,27 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#95 Unwrapping an optional or throwing an error](https://twitter.com/johnsundell/status/1047232852113412098)
+
+📦 Here's a super handy extension on Swift's `Optional` type, which gives us a really nice API for easily unwrapping an optional, or throwing an error in case the value turned out to be `nil`:
+
+```swift
+extension Optional {
+    func orThrow(_ errorExpression: @autoclosure () -> Error) throws -> Wrapped {
+        switch self {
+        case .some(let value):
+            return value
+        case .none:
+            throw errorExpression()
+        }
+    }
+}
+
+let file = try loadFile(at: path).orThrow(MissingFileError())
+```
+
+*For more ways that optionals can be extended, check out ["Extending optionals in Swift"](https://www.swiftbysundell.com/posts/extending-optionals-in-swift).*
 
 ## [#94 Testing code that uses static APIs](https://twitter.com/johnsundell/status/1044900209841590272)
 
