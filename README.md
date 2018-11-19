@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#96 Specializing protocols using constraints](https://github.com/johnsundell/swifttips#96-specializing-protocols-using-constraints)  
 [#95 Unwrapping an optional or throwing an error](https://github.com/johnsundell/swifttips#95-unwrapping-an-optional-or-throwing-an-error)  
 [#94 Testing code that uses static APIs](https://github.com/johnsundell/swifttips#94-testing-code-that-uses-static-apis)  
 [#93 Matching multiple enum cases with associated values](https://github.com/johnsundell/swifttips#93-matching-multiple-enum-cases-with-associated-values)  
@@ -101,6 +102,34 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#96 Specializing protocols using constraints](https://twitter.com/johnsundell/status/1049428419040215040)
+
+🤯 A little late night prototyping session reveals that protocol constraints can not only be applied to extensions - they can also be added to protocol definitions!
+
+This is awesome, since it lets us easily define specialized protocols based on more generic ones.
+
+```swift
+protocol Component {
+    associatedtype Container
+    func add(to container: Container)
+}
+
+// Protocols that inherit from other protocols can include
+// constraints to further specialize them.
+protocol ViewComponent: Component where Container == UIView {
+    associatedtype View: UIView
+    var view: View { get }
+}
+
+extension ViewComponent {
+    func add(to container: UIView) {
+        container.addSubview(view)
+    }
+}
+```
+
+*For more on specializing protocols, check out ["Specializing protocols in Swift"](https://www.swiftbysundell.com/posts/specializing-protocols-in-swift).*
 
 ## [#95 Unwrapping an optional or throwing an error](https://twitter.com/johnsundell/status/1047232852113412098)
 
