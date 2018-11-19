@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#99 Dependency injection using functions](https://github.com/johnsundell/swifttips#99-dependency-injection-using-functions)  
 [#98 Using a custom exception handler](https://github.com/johnsundell/swifttips#98-using-a-custom-exception-handler)  
 [#97 Using type aliases to give semantic meaning to primitives](https://github.com/johnsundell/swifttips#97-using-type-aliases-to-give-semantic-meaning-to-primitives)  
 [#96 Specializing protocols using constraints](https://github.com/johnsundell/swifttips#96-specializing-protocols-using-constraints)  
@@ -104,6 +105,28 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#99 Dependency injection using functions](https://twitter.com/johnsundell/status/1054810472564879360)
+
+💉 When I'm only using a single function from a dependency, I love to inject that function as a closure, instead of having to create a protocol and inject the whole object. Makes dependency injection & testing super simple.
+
+```swift
+final class ArticleLoader {
+    typealias Networking = (Endpoint) -> Future<Data>
+    
+    private let networking: Networking
+    
+    init(networking: @escaping Networking = URLSession.shared.load) {
+        self.networking = networking
+    }
+    
+    func loadLatest() -> Future<[Article]> {
+        return networking(.latestArticles).decode()
+    }
+}
+```
+
+*For more on this technique, check out ["Simple Swift dependency injection with functions"](https://www.swiftbysundell.com/posts/simple-swift-dependency-injection-with-functions).*
 
 ## [#98 Using a custom exception handler](https://twitter.com/johnsundell/status/1052282169807306755)
 
