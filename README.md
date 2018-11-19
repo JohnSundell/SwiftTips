@@ -2,7 +2,11 @@
 
 One of the things I really love about Swift is how I keep finding interesting ways to use it in various situations, and when I do - I usually share them on [Twitter](https://twitter.com/johnsundell). Here's a collection of all the tips & tricks that I've shared so far. Each entry has a link to the original tweet, if you want to respond with some feedback or question, which is always super welcome! 🚀
 
-I also write a weekly blog about Swift development at [swiftbysundell.com](https://www.swiftbysundell.com), where you can also find [my podcast](https://www.swiftbysundell.com/podcast) on which me + guests answer questions from the community! 😀
+**Also make sure to check out all of my other Swift content:**
+
+- 📖 [My weekly articles, with a new post about Swift every Sunday!](https://swiftbysundell.com)
+- 🎧 [My podcast which features special guests from around the community.](https://swiftbysundell.com/podcast)
+- 📬 [My monthly newsletter - rounding up all of my content, including these tips, on the 1st of every month.](https://swiftbysundell.com/newsletter)
 
 ## Table of contents
 
