@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#100 Combining values with functions](https://github.com/johnsundell/swifttips#100-combining-values-with-functions)  
 [#99 Dependency injection using functions](https://github.com/johnsundell/swifttips#99-dependency-injection-using-functions)  
 [#98 Using a custom exception handler](https://github.com/johnsundell/swifttips#98-using-a-custom-exception-handler)  
 [#97 Using type aliases to give semantic meaning to primitives](https://github.com/johnsundell/swifttips#97-using-type-aliases-to-give-semantic-meaning-to-primitives)  
@@ -105,6 +106,42 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#100 Combining values with functions](https://twitter.com/johnsundell/status/1055562781070684162)
+
+😎 Here's a cool function that combines a value with a function to return a closure that captures that value, so that it can be called without any arguments. Super useful when working with closure-based APIs and we want to use some of our properties without having to capture `self`.
+
+```swift
+func combine<A, B>(_ value: A, with closure: @escaping (A) -> B) -> () -> B {
+    return { closure(value) }
+}
+
+// BEFORE:
+
+class ProductViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        buyButton.handler = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.productManager.startCheckout(for: self.product)
+        }
+    }
+}
+
+// AFTER:
+
+class ProductViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        buyButton.handler = combine(product, with: productManager.startCheckout)
+    }
+}
+```
 
 ## [#99 Dependency injection using functions](https://twitter.com/johnsundell/status/1054810472564879360)
 
