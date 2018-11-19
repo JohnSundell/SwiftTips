@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#102 Making async tests faster and more stable](https://github.com/johnsundell/swifttips#102-making-async-tests-faster-and-more-stable)  
 [#101 Adding support for Apple Pencil double-taps](https://github.com/johnsundell/swifttips#101-adding-support-for-apple-pencil-double-taps)  
 [#100 Combining values with functions](https://github.com/johnsundell/swifttips#100-combining-values-with-functions)  
 [#99 Dependency injection using functions](https://github.com/johnsundell/swifttips#99-dependency-injection-using-functions)  
@@ -107,6 +108,53 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#102 Making async tests faster and more stable](https://twitter.com/johnsundell/status/1062444638479491073)
+
+🚀 Here are some quick tips to make async tests faster & more stable:
+
+- 😴 Avoid sleep() - use expectations instead
+- ⏱ Use generous timeouts to avoid flakiness on CI
+- 🧐 Put all assertions at the end of each test, not inside closures
+
+```swift
+// BEFORE:
+
+class MentionDetectorTests: XCTestCase {
+    func testDetectingMention() {
+        let detector = MentionDetector()
+        let string = "This test was written by @johnsundell."
+
+        detector.detectMentions(in: string) { mentions in
+            XCTAssertEqual(mentions, ["johnsundell"])
+        }
+        
+        sleep(2)
+    }
+}
+
+// AFTER:
+
+class MentionDetectorTests: XCTestCase {
+    func testDetectingMention() {
+        let detector = MentionDetector()
+        let string = "This test was written by @johnsundell."
+
+        var mentions: [String]?
+        let expectation = self.expectation(description: #function)
+
+        detector.detectMentions(in: string) {
+            mentions = $0
+            expectation.fulfill()
+        }
+
+        waitForExpectations(timeout: 10)
+        XCTAssertEqual(mentions, ["johnsundell"])
+    }
+}
+```
+
+*For more on async testing, check out ["Unit testing asynchronous Swift code"](https://www.swiftbysundell.com/posts/unit-testing-asynchronous-swift-code).*
 
 ## [#101 Adding support for Apple Pencil double-taps](https://twitter.com/johnsundell/status/1060295659549528064)
 
