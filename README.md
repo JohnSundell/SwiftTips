@@ -6,6 +6,7 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 
 ## Table of contents
 
+[#101 Adding support for Apple Pencil double-taps](https://github.com/johnsundell/swifttips#101-adding-support-for-apple-pencil-double-taps)  
 [#100 Combining values with functions](https://github.com/johnsundell/swifttips#100-combining-values-with-functions)  
 [#99 Dependency injection using functions](https://github.com/johnsundell/swifttips#99-dependency-injection-using-functions)  
 [#98 Using a custom exception handler](https://github.com/johnsundell/swifttips#98-using-a-custom-exception-handler)  
@@ -106,6 +107,24 @@ I also write a weekly blog about Swift development at [swiftbysundell.com](https
 [#3 Referencing either external or internal parameter name when writing docs](https://github.com/JohnSundell/SwiftTips#3-referencing-either-external-or-internal-parameter-name-when-writing-docs)   
 [#2 Using auto closures](https://github.com/JohnSundell/SwiftTips#2-using-auto-closures)   
 [#1 Namespacing with nested types](https://github.com/JohnSundell/SwiftTips#1-namespacing-with-nested-types)
+
+## [#101 Adding support for Apple Pencil double-taps](https://twitter.com/johnsundell/status/1060295659549528064)
+
+✍️ Adding support for the new Apple Pencil double-tap feature is super easy! All you have to do is to create a `UIPencilInteraction`, add it to a view, and implement one delegate method. Hopefully all pencil-compatible apps will soon adopt this.
+
+```swift
+let interaction = UIPencilInteraction()
+interaction.delegate = self
+view.addInteraction(interaction)
+
+extension ViewController: UIPencilInteractionDelegate {
+    func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
+        // Handle pencil double-tap
+    }
+}
+```
+
+*For more on using this and other iPad Pro features, check out ["Building iPad Pro features in Swift"](https://www.swiftbysundell.com/posts/building-ipad-pro-features-in-swift).*
 
 ## [#100 Combining values with functions](https://twitter.com/johnsundell/status/1055562781070684162)
 
