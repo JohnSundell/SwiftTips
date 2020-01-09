@@ -1,3 +1,5 @@
+⚠️ **This list is no longer being updated. For my latest Swift tips, checkout the ["Tips" section on Swift by Sundell](https://www.swiftbysundell.com/tips)**.
+
 # Swift tips & tricks ⚡️
 
 One of the things I really love about Swift is how I keep finding interesting ways to use it in various situations, and when I do - I usually share them on [Twitter](https://twitter.com/johnsundell). Here's a collection of all the tips & tricks that I've shared so far. Each entry has a link to the original tweet, if you want to respond with some feedback or question, which is always super welcome! 🚀
