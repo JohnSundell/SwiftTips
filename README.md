@@ -800,7 +800,7 @@ extension Task {
 🤖 Now that the Swift compiler automatically synthesizes Equatable & Hashable conformances for value types, it's easier than ever to setup model structures with nested types that are all `Equatable`/`Hashable`!
 
 ```swift
-typealias Value = Hashable & Codable
+typealias Value = Hashable & Equatable
 
 struct User: Value {
     var name: String
